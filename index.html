@@ -25,6 +25,25 @@
     margin-bottom: 2px;
     font-weight: bold;
 }
+    .figure-input-on-shape {
+    background: white;
+    border: 2px solid #3498db;
+    border-radius: 4px;
+    padding: 2px 4px;
+    font-size: 12px;
+    text-align: center;
+    width: 50px;
+}
+
+.figure-input-on-shape:focus {
+    outline: none;
+    border-color: #e74c3c;
+    box-shadow: 0 0 3px rgba(231, 76, 60, 0.5);
+}
+
+foreignObject {
+    overflow: visible;
+}
     
     
     <!-- стили -->
@@ -882,7 +901,8 @@
             </section>
 
             <!-- раздел 4: КАЛЬКУЛЯТОР КРУГ И КВАДРАТ -->
-            <section>
+            <!-- раздел 4: КАЛЬКУЛЯТОР КРУГ И КВАДРАТ -->
+<section>
     <section>
         <h2>Калькулятор: Круг и Квадрат</h2>
         <p>Вычисление периметра и площади с проверкой существования фигуры</p>
@@ -904,14 +924,13 @@
                         <text x="100" y="85" font-size="16" fill="#2c3e50" text-anchor="middle" font-weight="bold" id="circle-p-value">?</text>
                         <text x="100" y="110" font-size="14" fill="#2c3e50" text-anchor="middle" class="figure-label">Площадь:</text>
                         <text x="100" y="125" font-size="16" fill="#2c3e50" text-anchor="middle" font-weight="bold" id="circle-s-value">?</text>
+                        
+                        <!-- Поле ввода радиуса НА САМОЙ ФИГУРЕ -->
+                        <foreignObject x="140" y="90" width="50" height="25">
+                            <input type="number" class="figure-input-on-shape" value="5" 
+                                   min="0.1" step="0.1" style="width: 100%; height: 100%; font-size: 12px;"/>
+                        </foreignObject>
                     </svg>
-                    
-                    <!-- Поле ввода радиуса с обозначением -->
-                    <div class="input-with-label" style="position: absolute; top: 150px; left: 100px; transform: translateX(-50%); text-align: center;">
-                        <div style="font-size: 12px; color: #e74c3c; margin-bottom: 2px;">r =</div>
-                        <input type="number" class="input-inline" id="circle-r-input" 
-                               value="5" min="0.1" step="0.1" style="width: 70px;">
-                    </div>
                 </div>
                 
                 <div class="input-group">
@@ -955,14 +974,14 @@
                         <text x="100" y="95" font-size="16" fill="#2c3e50" text-anchor="middle" font-weight="bold" id="square-p-value">?</text>
                         <text x="100" y="120" font-size="14" fill="#2c3e50" text-anchor="middle" class="figure-label">Площадь:</text>
                         <text x="100" y="135" font-size="16" fill="#2c3e50" text-anchor="middle" font-weight="bold" id="square-s-value">?</text>
+                        
+                        <!-- Поле ввода стороны НА САМОЙ ФИГУРЕ -->
+                        <foreignObject x="85" y="170" width="30" height="25">
+                            <input type="number" class="figure-input-on-shape" value="4" 
+                                   min="0.1" step="0.1" style="width: 100%; height: 100%; font-size: 12px;"/>
+                        </foreignObject>
+                        <text x="70" y="185" font-size="10" fill="#2c3e50">a</text>
                     </svg>
-                    
-                    <!-- Поле ввода стороны с обозначением -->
-                    <div class="input-with-label" style="position: absolute; top: 170px; left: 100px; transform: translateX(-50%); text-align: center;">
-                        <div style="font-size: 12px; color: #2c3e50; margin-bottom: 2px;">a =</div>
-                        <input type="number" class="input-inline" id="square-a-input" 
-                               value="4" min="0.1" step="0.1" style="width: 70px;">
-                    </div>
                 </div>
                 
                 <div class="input-group">
@@ -1018,26 +1037,29 @@
                         <text x="100" y="115" font-size="14" fill="#2c3e50" text-anchor="middle" font-weight="bold" id="triangle-p-value">?</text>
                         <text x="100" y="130" font-size="12" fill="#2c3e50" text-anchor="middle" class="figure-label">Площадь:</text>
                         <text x="100" y="145" font-size="14" fill="#2c3e50" text-anchor="middle" font-weight="bold" id="triangle-s-value">?</text>
+                        
+                        <!-- Поля ввода сторон НА САМОЙ ФИГУРЕ -->
+                        <!-- Сторона a (слева внизу) -->
+                        <foreignObject x="15" y="150" width="30" height="25">
+                            <input type="number" class="figure-input-on-shape" value="3" 
+                                   min="0.1" step="0.1" style="width: 100%; height: 100%; font-size: 12px;"/>
+                        </foreignObject>
+                        <text x="30" y="145" font-size="10" fill="#2c3e50">a</text>
+                        
+                        <!-- Сторона b (справа внизу) -->
+                        <foreignObject x="155" y="150" width="30" height="25">
+                            <input type="number" class="figure-input-on-shape" value="4" 
+                                   min="0.1" step="0.1" style="width: 100%; height: 100%; font-size: 12px;"/>
+                        </foreignObject>
+                        <text x="170" y="145" font-size="10" fill="#2c3e50">b</text>
+                        
+                        <!-- Сторона c (вверху) -->
+                        <foreignObject x="85" y="10" width="30" height="25">
+                            <input type="number" class="figure-input-on-shape" value="5" 
+                                   min="0.1" step="0.1" style="width: 100%; height: 100%; font-size: 12px;"/>
+                        </foreignObject>
+                        <text x="100" y="35" font-size="10" fill="#2c3e50">c</text>
                     </svg>
-                    
-                    <!-- Поля ввода сторон с обозначениями -->
-                    <div class="input-with-label" style="position: absolute; top: 180px; left: 50px; text-align: center;">
-                        <div style="font-size: 12px; color: #2c3e50; margin-bottom: 2px;">a =</div>
-                        <input type="number" class="input-inline" id="triangle-a-input" 
-                               value="3" min="0.1" step="0.1" style="width: 60px;">
-                    </div>
-                    
-                    <div class="input-with-label" style="position: absolute; top: 180px; left: 150px; text-align: center;">
-                        <div style="font-size: 12px; color: #2c3e50; margin-bottom: 2px;">b =</div>
-                        <input type="number" class="input-inline" id="triangle-b-input" 
-                               value="4" min="0.1" step="0.1" style="width: 60px;">
-                    </div>
-                    
-                    <div class="input-with-label" style="position: absolute; top: 10px; left: 85px; text-align: center;">
-                        <div style="font-size: 12px; color: #2c3e50; margin-bottom: 2px;">c =</div>
-                        <input type="number" class="input-inline" id="triangle-c-input" 
-                               value="5" min="0.1" step="0.1" style="width: 60px;">
-                    </div>
                 </div>
                 
                 <div class="input-group">
@@ -1089,20 +1111,21 @@
                         <text x="100" y="95" font-size="14" fill="#2c3e50" text-anchor="middle" font-weight="bold" id="rhombus-p-value">?</text>
                         <text x="100" y="110" font-size="12" fill="#2c3e50" text-anchor="middle" class="figure-label">Площадь:</text>
                         <text x="100" y="125" font-size="14" fill="#2c3e50" text-anchor="middle" font-weight="bold" id="rhombus-s-value">?</text>
+                        
+                        <!-- Поле ввода стороны НА САМОЙ ФИГУРЕ -->
+                        <foreignObject x="130" y="70" width="30" height="25">
+                            <input type="number" class="figure-input-on-shape" value="6" 
+                                   min="0.1" step="0.1" style="width: 100%; height: 100%; font-size: 12px;"/>
+                        </foreignObject>
+                        <text x="145" y="65" font-size="10" fill="#2c3e50">a</text>
+                        
+                        <!-- Поле ввода высоты -->
+                        <foreignObject x="60" y="140" width="30" height="25">
+                            <input type="number" class="figure-input-on-shape" value="4" 
+                                   min="0.1" step="0.1" style="width: 100%; height: 100%; font-size: 12px;"/>
+                        </foreignObject>
+                        <text x="75" y="135" font-size="10" fill="#2c3e50">h</text>
                     </svg>
-                    
-                    <!-- Поля ввода с обозначениями -->
-                    <div class="input-with-label" style="position: absolute; top: 50px; left: 140px; text-align: center;">
-                        <div style="font-size: 12px; color: #2c3e50; margin-bottom: 2px;">a =</div>
-                        <input type="number" class="input-inline" id="rhombus-a-input" 
-                               value="6" min="0.1" step="0.1" style="width: 60px;">
-                    </div>
-                    
-                    <div class="input-with-label" style="position: absolute; top: 150px; left: 60px; text-align: center;">
-                        <div style="font-size: 12px; color: #2c3e50; margin-bottom: 2px;">h =</div>
-                        <input type="number" class="input-inline" id="rhombus-h-input" 
-                               value="4" min="0.1" step="0.1" style="width: 60px;">
-                    </div>
                 </div>
                 
                 <div class="input-group">
@@ -1166,26 +1189,29 @@
                         <text x="90" y="115" font-size="14" fill="#2c3e50" text-anchor="middle" font-weight="bold" id="parallelogram-p-value">?</text>
                         <text x="90" y="130" font-size="12" fill="#2c3e50" text-anchor="middle" class="figure-label">Площадь:</text>
                         <text x="90" y="145" font-size="14" fill="#2c3e50" text-anchor="middle" font-weight="bold" id="parallelogram-s-value">?</text>
+                        
+                        <!-- Поля ввода НА САМОЙ ФИГУРЕ -->
+                        <!-- Основание a -->
+                        <foreignObject x="90" y="10" width="30" height="25">
+                            <input type="number" class="figure-input-on-shape" value="5" 
+                                   min="0.1" step="0.1" style="width: 100%; height: 100%; font-size: 12px;"/>
+                        </foreignObject>
+                        <text x="105" y="5" font-size="10" fill="#2c3e50">a</text>
+                        
+                        <!-- Сторона b -->
+                        <foreignObject x="165" y="100" width="30" height="25">
+                            <input type="number" class="figure-input-on-shape" value="7" 
+                                   min="0.1" step="0.1" style="width: 100%; height: 100%; font-size: 12px;"/>
+                        </foreignObject>
+                        <text x="180" y="95" font-size="10" fill="#2c3e50">b</text>
+                        
+                        <!-- Высота h -->
+                        <foreignObject x="10" y="100" width="30" height="25">
+                            <input type="number" class="figure-input-on-shape" value="4" 
+                                   min="0.1" step="0.1" style="width: 100%; height: 100%; font-size: 12px;"/>
+                        </foreignObject>
+                        <text x="25" y="95" font-size="10" fill="#2c3e50">h</text>
                     </svg>
-                    
-                    <!-- Поля ввода с обозначениями -->
-                    <div class="input-with-label" style="position: absolute; top: 10px; left: 100px; text-align: center;">
-                        <div style="font-size: 12px; color: #2c3e50; margin-bottom: 2px;">a =</div>
-                        <input type="number" class="input-inline" id="parallelogram-a-input" 
-                               value="5" min="0.1" step="0.1" style="width: 60px;">
-                    </div>
-                    
-                    <div class="input-with-label" style="position: absolute; top: 100px; left: 160px; text-align: center;">
-                        <div style="font-size: 12px; color: #2c3e50; margin-bottom: 2px;">b =</div>
-                        <input type="number" class="input-inline" id="parallelogram-b-input" 
-                               value="7" min="0.1" step="0.1" style="width: 60px;">
-                    </div>
-                    
-                    <div class="input-with-label" style="position: absolute; top: 100px; left: 20px; text-align: center;">
-                        <div style="font-size: 12px; color: #2c3e50; margin-bottom: 2px;">h =</div>
-                        <input type="number" class="input-inline" id="parallelogram-h-input" 
-                               value="4" min="0.1" step="0.1" style="width: 60px;">
-                    </div>
                 </div>
                 
                 <div class="input-group">
@@ -1241,38 +1267,43 @@
                         <text x="100" y="115" font-size="14" fill="#2c3e50" text-anchor="middle" font-weight="bold" id="trapezoid-p-value">?</text>
                         <text x="100" y="130" font-size="12" fill="#2c3e50" text-anchor="middle" class="figure-label">Площадь:</text>
                         <text x="100" y="145" font-size="14" fill="#2c3e50" text-anchor="middle" font-weight="bold" id="trapezoid-s-value">?</text>
+                        
+                        <!-- Поля ввода НА САМОЙ ФИГУРЕ -->
+                        <!-- Основание a (внизу) -->
+                        <foreignObject x="85" y="175" width="30" height="25">
+                            <input type="number" class="figure-input-on-shape" value="4" 
+                                   min="0.1" step="0.1" style="width: 100%; height: 100%; font-size: 12px;"/>
+                        </foreignObject>
+                        <text x="100" y="190" font-size="10" fill="#2c3e50">a</text>
+                        
+                        <!-- Основание b (вверху) -->
+                        <foreignObject x="85" y="5" width="30" height="25">
+                            <input type="number" class="figure-input-on-shape" value="6" 
+                                   min="0.1" step="0.1" style="width: 100%; height: 100%; font-size: 12px;"/>
+                        </foreignObject>
+                        <text x="100" y="20" font-size="10" fill="#2c3e50">b</text>
+                        
+                        <!-- Сторона c (слева вверху) -->
+                        <foreignObject x="45" y="15" width="30" height="25">
+                            <input type="number" class="figure-input-on-shape" value="3" 
+                                   min="0.1" step="0.1" style="width: 100%; height: 100%; font-size: 12px;"/>
+                        </foreignObject>
+                        <text x="60" y="10" font-size="10" fill="#2c3e50">c</text>
+                        
+                        <!-- Сторона d (слева внизу) -->
+                        <foreignObject x="45" y="150" width="30" height="25">
+                            <input type="number" class="figure-input-on-shape" value="5" 
+                                   min="0.1" step="0.1" style="width: 100%; height: 100%; font-size: 12px;"/>
+                        </foreignObject>
+                        <text x="60" y="145" font-size="10" fill="#2c3e50">d</text>
+                        
+                        <!-- Высота h -->
+                        <foreignObject x="20" y="90" width="30" height="25">
+                            <input type="number" class="figure-input-on-shape" value="4" 
+                                   min="0.1" step="0.1" style="width: 100%; height: 100%; font-size: 12px;"/>
+                        </foreignObject>
+                        <text x="35" y="85" font-size="10" fill="#2c3e50">h</text>
                     </svg>
-                    
-                    <!-- Поля ввода с обозначениями -->
-                    <div class="input-with-label" style="position: absolute; top: 180px; left: 100px; text-align: center;">
-                        <div style="font-size: 12px; color: #2c3e50; margin-bottom: 2px;">a =</div>
-                        <input type="number" class="input-inline" id="trapezoid-a-input" 
-                               value="4" min="0.1" step="0.1" style="width: 60px;">
-                    </div>
-                    
-                    <div class="input-with-label" style="position: absolute; top: 10px; left: 100px; text-align: center;">
-                        <div style="font-size: 12px; color: #2c3e50; margin-bottom: 2px;">b =</div>
-                        <input type="number" class="input-inline" id="trapezoid-b-input" 
-                               value="6" min="0.1" step="0.1" style="width: 60px;">
-                    </div>
-                    
-                    <div class="input-with-label" style="position: absolute; top: 30px; left: 50px; text-align: center;">
-                        <div style="font-size: 12px; color: #2c3e50; margin-bottom: 2px;">c =</div>
-                        <input type="number" class="input-inline" id="trapezoid-c-input" 
-                               value="3" min="0.1" step="0.1" style="width: 60px;">
-                    </div>
-                    
-                    <div class="input-with-label" style="position: absolute; top: 180px; left: 50px; text-align: center;">
-                        <div style="font-size: 12px; color: #2c3e50; margin-bottom: 2px;">d =</div>
-                        <input type="number" class="input-inline" id="trapezoid-d-input" 
-                               value="5" min="0.1" step="0.1" style="width: 60px;">
-                    </div>
-                    
-                    <div class="input-with-label" style="position: absolute; top: 100px; left: 30px; text-align: center;">
-                        <div style="font-size: 12px; color: #2c3e50; margin-bottom: 2px;">h =</div>
-                        <input type="number" class="input-inline" id="trapezoid-h-input" 
-                               value="4" min="0.1" step="0.1" style="width: 60px;">
-                    </div>
                 </div>
                 
                 <div class="input-group">
