@@ -1,4 +1,1475 @@
-function calculateTriangle() {
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Геометрические фигуры: Периметр и Площадь</title>
+    
+    <!-- reveal.js CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/simple.min.css">
+    
+    <!-- font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- стили -->
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --success-color: #2ecc71;
+            --figure-bg: #f8f9fa;
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: #f5f5f5;
+        }
+        
+        .reveal {
+            width: 100vw;
+            height: 100vh;
+        }
+        
+        .reveal .slides {
+            width: 100% !important;
+            height: 100% !important;
+            top: 0 !important;
+            left: 0 !important;
+            transform: none !important;
+            text-align: left;
+        }
+        
+        .reveal .slides section {
+            padding: 20px 40px;
+            width: 100%;
+            height: 100%;
+            display: flex !important;
+            flex-direction: column;
+            justify-content: center;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+        .figure-input {
+    position: absolute;
+    background: white;
+    border: 1px solid #3498db;
+    border-radius: 3px;
+    padding: 2px 5px;
+    font-size: 10px;
+    width: 40px;
+    text-align: center;
+    z-index: 10;
+}
+
+.figure-input:focus {
+    outline: none;
+    border-color: #e74c3c;
+    box-shadow: 0 0 3px rgba(231, 76, 60, 0.5);
+}
+
+.figure-value {
+    font-size: 10px;
+    fill: #2c3e50;
+    font-weight: bold;
+}
+        
+        /* размеры текста */
+        .reveal h1 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 0.8rem;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.5rem;
+        }
+        
+        .reveal h2 {
+            font-size: 1.6rem;
+            color: var(--secondary-color);
+            margin-bottom: 0.7rem;
+        }
+        
+        .reveal h3 {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .reveal p, .reveal li {
+            font-size: 1rem;
+            line-height: 1.3;
+            margin-bottom: 0.4rem;
+        }
+        
+        .reveal ul, .reveal ol {
+            margin-left: 1.2rem;
+            margin-bottom: 0.6rem;
+        }
+        
+        /* стили для слайда с содержанием */
+        .toc-slide {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .toc-slide h2 {
+            color: white;
+            text-align: center;
+        }
+        
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+        
+        .toc-item {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 12px;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--success-color);
+            color: var(--primary-color);
+        }
+        
+        .toc-number {
+            display: inline-block;
+            width: 22px;
+            height: 22px;
+            background: var(--success-color);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 22px;
+            margin-right: 8px;
+            font-size: 0.8rem;
+        }
+        
+        /* Геометрические фигуры */
+        .figure-slide {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .figure-container {
+            background: var(--figure-bg);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border: 2px solid var(--secondary-color);
+        }
+        
+        .figure-title {
+            color: var(--accent-color);
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+        
+        .figure-svg {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 15px;
+            display: block;
+            background: white;
+            border-radius: 8px;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .input-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .input-row label {
+            min-width: 30px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .input-row input {
+            flex: 1;
+            padding: 6px 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+        
+        .calculate-btn {
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            width: 100%;
+            margin-bottom: 15px;
+            transition: background 0.3s;
+        }
+        
+        .calculate-btn:hover {
+            background: #2980b9;
+        }
+        
+        .results {
+            background: white;
+            border-radius: 6px;
+            padding: 15px;
+            border-left: 4px solid var(--success-color);
+        }
+        
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 0.9rem;
+        }
+        
+        .error-message {
+            color: var(--accent-color);
+            font-size: 0.8rem;
+            margin-top: 5px;
+            min-height: 20px;
+        }
+        
+        /* Формулы */
+        .formula-section {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 10px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .formula {
+            font-family: 'Courier New', monospace;
+            background: #e8f4fc;
+            padding: 8px 12px;
+            border-radius: 4px;
+            display: inline-block;
+            margin: 4px 0;
+        }
+        
+        .formula-title {
+            color: var(--accent-color);
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        /* Примеры */
+        .example {
+            background: #fff;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--accent-color);
+        }
+        
+        .example-title {
+            color: var(--accent-color);
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        /* Изображения */
+        .image-slide {
+            text-align: center;
+        }
+        
+        .fun-image {
+            max-width: 50%;
+            max-height: 200px;
+            object-fit: contain;
+            border-radius: 8px;
+            margin: 10px auto;
+            display: block;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            border: 3px solid white;
+        }
+        
+        .caption {
+            text-align: center;
+            font-style: italic;
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 8px;
+        }
+        
+        /* Стили для слайдов с кодом */
+        .code-slide {
+            background: #2d2d2d !important;
+            color: #f8f8f2 !important;
+        }
+        
+        .code-slide h3 {
+            color: #66d9ef !important;
+            border-bottom: 2px solid #66d9ef;
+            padding-bottom: 10px;
+        }
+        
+        .code-container {
+            background: #1e1e1e;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            overflow-x: auto;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .code-keyword {
+            color: #f92672;
+        }
+        
+        .code-function {
+            color: #66d9ef;
+        }
+        
+        .code-string {
+            color: #a6e22e;
+        }
+        
+        .code-comment {
+            color: #75715e;
+        }
+        
+        .code-number {
+            color: #ae81ff;
+        }
+        
+        .code-operator {
+            color: #f8f8f2;
+        }
+        
+        .code-line {
+            margin-bottom: 3px;
+        }
+        
+        /* об авторе */
+        .author-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 4px solid var(--secondary-color);
+        }
+        
+        /* Прогресс бар */
+        .progress {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: var(--secondary-color);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        @media (max-width: 768px) {
+            .reveal .slides section {
+                padding: 15px 20px;
+            }
+            
+            .reveal h1 {
+                font-size: 1.6rem;
+            }
+            
+            .reveal h2 {
+                font-size: 1.3rem;
+            }
+            
+            .reveal h3 {
+                font-size: 1.1rem;
+            }
+            
+            .reveal p, .reveal li {
+                font-size: 0.9rem;
+            }
+            
+            .toc-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .figure-slide {
+                grid-template-columns: 1fr;
+            }
+            
+            .fun-image {
+                max-width: 95%;
+            }
+        }
+        
+        /* убираю полосы прокрутки */
+        .reveal .slides section::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .reveal .slides section {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        /* подсказки */
+        .hint {
+            font-size: 0.8rem;
+            color: #666;
+            font-style: italic;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="reveal">
+        <div class="slides">
+            <!-- слайд 1: ТИТУЛЬНЫЙ -->
+            <section>
+                <div class="slide-content">
+                    <h1>Геометрические фигуры: Периметр и Площадь</h1>
+                    <h2>Интерактивная презентация</h2>
+                    <div class="author-info">
+                        <p><i class="fas fa-user"></i> <strong>Ярышина Даниэла Павловна</strong></p>
+                        <p><i class="fas fa-users"></i> Группа: Микн 4 курс</p>
+                    </div>
+                    <p class="hint">Используйте стрелки на клавиатуре для навигации</p>
+                </div>
+            </section>
+
+            <!-- слайд 2: СОДЕРЖАНИЕ -->
+<section class="toc-slide">
+    <div class="slide-content">
+        <h2>Содержание презентации</h2>
+        <ul class="toc-list">
+            <li class="toc-item">
+                <span class="toc-number">1</span>
+                Определение фигур
+            </li>
+            <li class="toc-item">
+                <span class="toc-number">2</span>
+                Формулы периметра
+            </li>
+            <li class="toc-item">
+                <span class="toc-number">3</span>
+                Формулы площади
+            </li>
+            <li class="toc-item">
+                <span class="toc-number">4</span>
+                Калькулятор: Круг и Квадрат
+            </li>
+            <li class="toc-item">
+                <span class="toc-number">5</span>
+                Калькулятор: Треугольник и Ромб
+            </li>
+            <li class="toc-item">
+                <span class="toc-number">6</span>
+                Калькулятор: Параллелограмм и Трапеция
+            </li>
+            <li class="toc-item">
+                <span class="toc-number">7</span>
+                Код программ
+            </li>
+            <li class="toc-item">
+                <span class="toc-number">8</span>
+                Весёлые картинки
+            </li>
+            <li class="toc-item">
+                <span class="toc-number">9</span>
+                Заключение
+            </li>
+        </ul>
+    </div>
+</section>
+
+            <!-- раздел 1: ОПРЕДЕЛЕНИЕ ФИГУР -->
+            <section>
+                <section>
+                    <h2>Определение геометрических фигур</h2>
+                    <p>Основные фигуры, которые мы будем изучать</p>
+                </section>
+
+                <section>
+                    <div class="figure-slide">
+                        <div class="figure-container">
+                            <div class="figure-title">Круг</div>
+                            <svg class="figure-svg" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="45" stroke="#3498db" stroke-width="2" fill="none"/>
+                                <line x1="50" y1="50" x2="95" y2="50" stroke="#e74c3c" stroke-width="1"/>
+                                <text x="73" y="48" font-size="8" fill="#e74c3c">r</text>
+                            </svg>
+                            <p>Множество всех точек плоскости, равноудалённых от одной точки (центра).</p>
+                        </div>
+
+                        <div class="figure-container">
+                            <div class="figure-title">Квадрат</div>
+                            <svg class="figure-svg" viewBox="0 0 100 100">
+                                <rect x="10" y="10" width="80" height="80" stroke="#3498db" stroke-width="2" fill="none"/>
+                                <text x="40" y="55" font-size="8" fill="#2c3e50">a</text>
+                            </svg>
+                            <p>Прямоугольник, у которого все стороны равны и все углы прямые.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="figure-slide">
+                        <div class="figure-container">
+                            <div class="figure-title">Треугольник</div>
+                            <svg class="figure-svg" viewBox="0 0 100 100">
+                                <polygon points="50,10 90,90 10,90" stroke="#3498db" stroke-width="2" fill="none"/>
+                                <text x="30" y="70" font-size="8" fill="#2c3e50">a</text>
+                                <text x="60" y="70" font-size="8" fill="#2c3e50">b</text>
+                                <text x="45" y="30" font-size="8" fill="#2c3e50">c</text>
+                            </svg>
+                            <p>Фигура, образованная тремя отрезками, соединяющими три точки, не лежащие на одной прямой.</p>
+                        </div>
+
+                        <div class="figure-container">
+                            <div class="figure-title">Параллелограмм</div>
+                            <svg class="figure-svg" viewBox="0 0 100 100">
+                                <polygon points="20,10 80,10 70,90 10,90" stroke="#3498db" stroke-width="2" fill="none"/>
+                                <text x="50" y="25" font-size="8" fill="#2c3e50">a</text>
+                                <text x="75" y="50" font-size="8" fill="#2c3e50">b</text>
+                            </svg>
+                            <p>Четырёхугольник, у которого противоположные стороны параллельны.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="figure-slide">
+                        <div class="figure-container">
+                            <div class="figure-title">Трапеция</div>
+                            <svg class="figure-svg" viewBox="0 0 100 100">
+                                <polygon points="20,90 80,90 70,10 30,10" stroke="#3498db" stroke-width="2" fill="none"/>
+                                <text x="25" y="50" font-size="8" fill="#2c3e50">a</text>
+                                <text x="75" y="50" font-size="8" fill="#2c3e50">b</text>
+                                <text x="50" y="20" font-size="8" fill="#2c3e50">c</text>
+                                <text x="50" y="80" font-size="8" fill="#2c3e50">d</text>
+                            </svg>
+                            <p>Четырёхугольник, у которого две стороны параллельны, а две другие — нет.</p>
+                        </div>
+
+                        <div class="figure-container">
+                            <div class="figure-title">Ромб</div>
+                            <svg class="figure-svg" viewBox="0 0 100 100">
+                                <polygon points="50,10 90,50 50,90 10,50" stroke="#3498db" stroke-width="2" fill="none"/>
+                                <text x="50" y="30" font-size="8" fill="#2c3e50">a</text>
+                            </svg>
+                            <p>Параллелограмм, у которого все стороны равны.</p>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- раздел 2: ФОРМУЛЫ ПЕРИМЕТРА -->
+            <section>
+                <section>
+                    <h2>Формулы периметра</h2>
+                    <p>Периметр — сумма длин всех сторон фигуры</p>
+                </section>
+
+                <section>
+                    <div class="formula-section">
+                        <div class="formula-title">
+                            <i class="fas fa-circle"></i>
+                            Периметр круга (длина окружности)
+                        </div>
+                        <p><strong>Формула:</strong> <span class="formula">P = 2πr = πd</span></p>
+                        <p>где r — радиус, d — диаметр, π ≈ 3.14159</p>
+                        
+                        <div class="example">
+                            <p><strong>Пример:</strong> Круг с радиусом 5 см</p>
+                            <p>P = 2 × π × 5 = 10π ≈ 31.42 см</p>
+                        </div>
+                    </div>
+
+                    <div class="formula-section">
+                        <div class="formula-title">
+                            <i class="fas fa-square"></i>
+                            Периметр квадрата
+                        </div>
+                        <p><strong>Формула:</strong> <span class="formula">P = 4a</span></p>
+                        <p>где a — длина стороны квадрата</p>
+                        
+                        <div class="example">
+                            <p><strong>Пример:</strong> Квадрат со стороной 6 см</p>
+                            <p>P = 4 × 6 = 24 см</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="formula-section">
+                        <div class="formula-title">
+                            <i class="fas fa-play"></i>
+                            Периметр треугольника
+                        </div>
+                        <p><strong>Формула:</strong> <span class="formula">P = a + b + c</span></p>
+                        <p>где a, b, c — длины сторон треугольника</p>
+                        
+                        <div class="example">
+                            <p><strong>Пример:</strong> Треугольник со сторонами 3, 4, 5 см</p>
+                            <p>P = 3 + 4 + 5 = 12 см</p>
+                        </div>
+                    </div>
+
+                    <div class="formula-section">
+                        <div class="formula-title">
+                            <i class="fas fa-shapes"></i>
+                            Периметр параллелограмма
+                        </div>
+                        <p><strong>Формула:</strong> <span class="formula">P = 2(a + b)</span></p>
+                        <p>где a и b — длины смежных сторон</p>
+                        
+                        <div class="example">
+                            <p><strong>Пример:</strong> Параллелограмм со сторонами 5 и 7 см</p>
+                            <p>P = 2 × (5 + 7) = 24 см</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="formula-section">
+                        <div class="formula-title">
+                            <i class="fas fa-traffic-cone"></i>
+                            Периметр трапеции
+                        </div>
+                        <p><strong>Формула:</strong> <span class="formula">P = a + b + c + d</span></p>
+                        <p>где a, b — основания, c, d — боковые стороны</p>
+                        
+                        <div class="example">
+                            <p><strong>Пример:</strong> Трапеция со сторонами 4, 6, 3, 5 см</p>
+                            <p>P = 4 + 6 + 3 + 5 = 18 см</p>
+                        </div>
+                    </div>
+
+                    <div class="formula-section">
+                        <div class="formula-title">
+                            <i class="fas fa-gem"></i>
+                            Периметр ромба
+                        </div>
+                        <p><strong>Формула:</strong> <span class="formula">P = 4a</span></p>
+                        <p>где a — длина стороны ромба</p>
+                        
+                        <div class="example">
+                            <p><strong>Пример:</strong> Ромб со стороной 8 см</p>
+                            <p>P = 4 × 8 = 32 см</p>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- раздел 3: КРУГ И КВАДРАТ -->
+            <section>
+    <section>
+        <h2>Калькулятор: Круг и Квадрат</h2>
+        <p>Вычисление периметра и площади с проверкой существования фигуры</p>
+    </section>
+
+    <section>
+        <div class="figure-slide">
+            <!-- КРУГ -->
+            <div class="figure-container">
+                <div class="figure-title">Круг</div>
+                <div style="position: relative; width: 200px; height: 200px; margin: 0 auto 15px;">
+                    <svg class="figure-svg" viewBox="0 0 100 100" style="width: 100%; height: 100%;">
+                        <circle cx="50" cy="50" r="45" stroke="#3498db" stroke-width="2" fill="#e8f4fc"/>
+                        <line x1="50" y1="50" x2="95" y2="50" stroke="#e74c3c" stroke-width="2"/>
+                        <text x="73" y="48" font-size="10" fill="#e74c3c" font-weight="bold">r</text>
+                        <foreignObject x="40" y="45" width="20" height="20">
+                            <input type="number" class="figure-input" id="circle-r-input" value="5" 
+                                   min="0.1" step="0.1" style="width: 100%; height: 100%;"/>
+                        </foreignObject>
+                        <text x="50" y="60" font-size="8" fill="#2c3e50" text-anchor="middle">P = <tspan id="circle-p-value">?</tspan></text>
+                        <text x="50" y="70" font-size="8" fill="#2c3e50" text-anchor="middle">S = <tspan id="circle-s-value">?</tspan></text>
+                    </svg>
+                </div>
+                
+                <div class="input-group">
+                    <div class="input-row">
+                        <label><i class="fas fa-ruler"></i> Радиус (r):</label>
+                        <input type="number" id="circle-r" placeholder="Радиус" step="0.1" min="0.1" value="5">
+                    </div>
+                </div>
+                
+                <button class="calculate-btn" onclick="calculateCircle()">
+                    <i class="fas fa-calculator"></i> Вычислить
+                </button>
+                
+                <div class="results">
+                    <div class="result-item">
+                        <span>Периметр (P):</span>
+                        <span id="circle-perimeter">-</span>
+                    </div>
+                    <div class="result-item">
+                        <span>Площадь (S):</span>
+                        <span id="circle-area">-</span>
+                    </div>
+                    <div class="result-item">
+                        <span>Диаметр (d):</span>
+                        <span id="circle-diameter">-</span>
+                    </div>
+                </div>
+                
+                <div class="error-message" id="circle-error"></div>
+            </div>
+
+            <!-- КВАДРАТ -->
+            <div class="figure-container">
+                <div class="figure-title">Квадрат</div>
+                <div style="position: relative; width: 200px; height: 200px; margin: 0 auto 15px;">
+                    <svg class="figure-svg" viewBox="0 0 100 100" style="width: 100%; height: 100%;">
+                        <rect x="15" y="15" width="70" height="70" stroke="#3498db" stroke-width="2" fill="#e8f4fc"/>
+                        <foreignObject x="40" y="40" width="20" height="20">
+                            <input type="number" class="figure-input" id="square-a-input" value="4" 
+                                   min="0.1" step="0.1" style="width: 100%; height: 100%;"/>
+                        </foreignObject>
+                        <text x="50" y="60" font-size="8" fill="#2c3e50" text-anchor="middle">P = <tspan id="square-p-value">?</tspan></text>
+                        <text x="50" y="70" font-size="8" fill="#2c3e50" text-anchor="middle">S = <tspan id="square-s-value">?</tspan></text>
+                    </svg>
+                </div>
+                
+                <div class="input-group">
+                    <div class="input-row">
+                        <label><i class="fas fa-ruler"></i> Сторона (a):</label>
+                        <input type="number" id="square-a" placeholder="Сторона" step="0.1" min="0.1" value="4">
+                    </div>
+                </div>
+                
+                <button class="calculate-btn" onclick="calculateSquare()">
+                    <i class="fas fa-calculator"></i> Вычислить
+                </button>
+                
+                <div class="results">
+                    <div class="result-item">
+                        <span>Периметр (P):</span>
+                        <span id="square-perimeter">-</span>
+                    </div>
+                    <div class="result-item">
+                        <span>Площадь (S):</span>
+                        <span id="square-area">-</span>
+                    </div>
+                    <div class="result-item">
+                        <span>Диагональ (d):</span>
+                        <span id="square-diagonal">-</span>
+                    </div>
+                </div>
+                
+                <div class="error-message" id="square-error"></div>
+            </div>
+        </div>
+    </section>
+</section>
+
+            <!-- раздел 4: ТРЕУГОЛЬНИК И РОМБ -->
+            <section>
+                <section>
+                    <h2>Калькулятор: Треугольник и Ромб</h2>
+                    <p>Вычисление периметра и площади с проверкой существования фигуры</p>
+                </section>
+
+                <section>
+                    <div class="figure-slide">
+                        <!-- ТРЕУГОЛЬНИК -->
+                        <div class="figure-container">
+    <div class="figure-title">Треугольник</div>
+    <div style="position: relative; width: 200px; height: 200px; margin: 0 auto 15px;">
+        <svg class="figure-svg" viewBox="0 0 100 100" style="width: 100%; height: 100%;">
+            <polygon points="50,15 85,85 15,85" stroke="#3498db" stroke-width="2" fill="#e8f4fc"/>
+            
+            <!-- Сторона a -->
+            <foreignObject x="35" y="70" width="15" height="15">
+                <input type="number" class="figure-input" id="triangle-a-input" value="3" 
+                       min="0.1" step="0.1" style="width: 100%; height: 100%;"/>
+            </foreignObject>
+            
+            <!-- Сторона b -->
+            <foreignObject x="65" y="70" width="15" height="15">
+                <input type="number" class="figure-input" id="triangle-b-input" value="4" 
+                       min="0.1" step="0.1" style="width: 100%; height: 100%;"/>
+            </foreignObject>
+            
+            <!-- Сторона c -->
+            <foreignObject x="45" y="30" width="15" height="15">
+                <input type="number" class="figure-input" id="triangle-c-input" value="5" 
+                       min="0.1" step="0.1" style="width: 100%; height: 100%;"/>
+            </foreignObject>
+            
+            <text x="50" y="50" font-size="6" fill="#2c3e50" text-anchor="middle">P = <tspan id="triangle-p-value">?</tspan></text>
+            <text x="50" y="60" font-size="6" fill="#2c3e50" text-anchor="middle">S = <tspan id="triangle-s-value">?</tspan></text>
+        </svg>
+    </div>
+    
+    <div class="input-group">
+        <div class="input-row">
+            <label><i class="fas fa-ruler"></i> Сторона a:</label>
+            <input type="number" id="triangle-a" placeholder="Сторона a" step="0.1" min="0.1" value="3">
+        </div>
+        <div class="input-row">
+            <label><i class="fas fa-ruler"></i> Сторона b:</label>
+            <input type="number" id="triangle-b" placeholder="Сторона b" step="0.1" min="0.1" value="4">
+        </div>
+        <div class="input-row">
+            <label><i class="fas fa-ruler"></i> Сторона c:</label>
+            <input type="number" id="triangle-c" placeholder="Сторона c" step="0.1" min="0.1" value="5">
+        </div>
+    </div>
+    
+    <button class="calculate-btn" onclick="calculateTriangle()">
+        <i class="fas fa-calculator"></i> Вычислить
+    </button>
+    
+    <div class="results">
+        <div class="result-item">
+            <span>Периметр (P):</span>
+            <span id="triangle-perimeter">-</span>
+        </div>
+        <div class="result-item">
+            <span>Площадь (S, Герон):</span>
+            <span id="triangle-area">-</span>
+        </div>
+        <div class="result-item">
+            <span>Существует?:</span>
+            <span id="triangle-exists">-</span>
+        </div>
+    </div>
+    
+    <div class="error-message" id="triangle-error"></div>
+</div>
+
+                        <!-- РОМБ -->
+                        <div class="figure-container">
+                            <div class="figure-title">Ромб</div>
+                            <svg class="figure-svg" viewBox="0 0 100 100">
+                                <polygon points="50,10 90,50 50,90 10,50" stroke="#3498db" stroke-width="2" fill="#e8f4fc"/>
+                                <line x1="10" y1="50" x2="90" y2="50" stroke="#e74c3c" stroke-width="1" stroke-dasharray="3"/>
+                                <line x1="50" y1="10" x2="50" y2="90" stroke="#e74c3c" stroke-width="1" stroke-dasharray="3"/>
+                                <text x="50" y="30" font-size="8" fill="#2c3e50">a</text>
+                                <text x="30" y="50" font-size="6" fill="#e74c3c">d₁</text>
+                                <text x="70" y="50" font-size="6" fill="#e74c3c">d₂</text>
+                            </svg>
+                            
+                            <div class="input-group">
+                                <div class="input-row">
+                                    <label>a:</label>
+                                    <input type="number" id="rhombus-a" placeholder="Сторона" step="0.1" min="0.1" value="6">
+                                </div>
+                                <div class="input-row">
+                                    <label>h:</label>
+                                    <input type="number" id="rhombus-h" placeholder="Высота" step="0.1" min="0.1" value="4">
+                                </div>
+                                <div class="input-row">
+                                    <label>∠:</label>
+                                    <input type="number" id="rhombus-angle" placeholder="Угол (°)" step="1" min="1" max="179" value="60">
+                                </div>
+                            </div>
+                            
+                            <button class="calculate-btn" onclick="calculateRhombus()">
+                                <i class="fas fa-calculator"></i> Вычислить
+                            </button>
+                            
+                            <div class="results">
+                                <div class="result-item">
+                                    <span>Периметр:</span>
+                                    <span id="rhombus-perimeter">-</span>
+                                </div>
+                                <div class="result-item">
+                                    <span>Площадь (через высоту):</span>
+                                    <span id="rhombus-area-height">-</span>
+                                </div>
+                                <div class="result-item">
+                                    <span>Площадь (через угол):</span>
+                                    <span id="rhombus-area-angle">-</span>
+                                </div>
+                            </div>
+                            
+                            <div class="error-message" id="rhombus-error"></div>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- раздел 5: ПАРАЛЛЕЛОГРАММ И ТРАПЕЦИЯ -->
+            <section>
+                <section>
+                    <h2>Калькулятор: Параллелограмм и Трапеция</h2>
+                    <p>Вычисление периметра и площади с проверкой существования фигуры</p>
+                </section>
+
+                <section>
+                    <div class="figure-slide">
+                        <!-- ПАРАЛЛЕЛОГРАММ -->
+                        <div class="figure-container">
+                            <div class="figure-title">Параллелограмм</div>
+                            <svg class="figure-svg" viewBox="0 0 100 100">
+                                <polygon points="20,15 80,15 70,85 10,85" stroke="#3498db" stroke-width="2" fill="#e8f4fc"/>
+                                <line x1="20" y1="15" x2="20" y2="85" stroke="#e74c3c" stroke-width="1"/>
+                                <text x="50" y="25" font-size="8" fill="#2c3e50">a</text>
+                                <text x="75" y="50" font-size="8" fill="#2c3e50">b</text>
+                                <text x="25" y="50" font-size="6" fill="#e74c3c">h</text>
+                            </svg>
+                            
+                            <div class="input-group">
+                                <div class="input-row">
+                                    <label>a:</label>
+                                    <input type="number" id="parallelogram-a" placeholder="Основание" step="0.1" min="0.1" value="5">
+                                </div>
+                                <div class="input-row">
+                                    <label>b:</label>
+                                    <input type="number" id="parallelogram-b" placeholder="Сторона" step="0.1" min="0.1" value="7">
+                                </div>
+                                <div class="input-row">
+                                    <label>h:</label>
+                                    <input type="number" id="parallelogram-h" placeholder="Высота" step="0.1" min="0.1" value="4">
+                                </div>
+                                <div class="input-row">
+                                    <label>∠:</label>
+                                    <input type="number" id="parallelogram-angle" placeholder="Угол (°)" step="1" min="1" max="179" value="45">
+                                </div>
+                            </div>
+                            
+                            <button class="calculate-btn" onclick="calculateParallelogram()">
+                                <i class="fas fa-calculator"></i> Вычислить
+                            </button>
+                            
+                            <div class="results">
+                                <div class="result-item">
+                                    <span>Периметр:</span>
+                                    <span id="parallelogram-perimeter">-</span>
+                                </div>
+                                <div class="result-item">
+                                    <span>Площадь (через высоту):</span>
+                                    <span id="parallelogram-area-height">-</span>
+                                </div>
+                                <div class="result-item">
+                                    <span>Площадь (через угол):</span>
+                                    <span id="parallelogram-area-angle">-</span>
+                                </div>
+                            </div>
+                            
+                            <div class="error-message" id="parallelogram-error"></div>
+                        </div>
+
+                        <!-- ТРАПЕЦИЯ -->
+                        <div class="figure-container">
+                            <div class="figure-title">Трапеция</div>
+                            <svg class="figure-svg" viewBox="0 0 100 100">
+                                <polygon points="20,85 80,85 70,15 30,15" stroke="#3498db" stroke-width="2" fill="#e8f4fc"/>
+                                <line x1="30" y1="15" x2="30" y2="85" stroke="#e74c3c" stroke-width="1"/>
+                                <line x1="30" y1="50" x2="70" y2="50" stroke="#2ecc71" stroke-width="1" stroke-dasharray="3"/>
+                                <text x="25" y="50" font-size="6" fill="#e74c3c">h</text>
+                                <text x="50" y="20" font-size="6" fill="#2c3e50">a</text>
+                                <text x="50" y="80" font-size="6" fill="#2c3e50">b</text>
+                                <text x="50" y="50" font-size="5" fill="#2ecc71">m</text>
+                            </svg>
+                            
+                            <div class="input-group">
+                                <div class="input-row">
+                                    <label>a:</label>
+                                    <input type="number" id="trapezoid-a" placeholder="Основание 1" step="0.1" min="0.1" value="4">
+                                </div>
+                                <div class="input-row">
+                                    <label>b:</label>
+                                    <input type="number" id="trapezoid-b" placeholder="Основание 2" step="0.1" min="0.1" value="6">
+                                </div>
+                                <div class="input-row">
+                                    <label>c:</label>
+                                    <input type="number" id="trapezoid-c" placeholder="Сторона 1" step="0.1" min="0.1" value="3">
+                                </div>
+                                <div class="input-row">
+                                    <label>d:</label>
+                                    <input type="number" id="trapezoid-d" placeholder="Сторона 2" step="0.1" min="0.1" value="5">
+                                </div>
+                                <div class="input-row">
+                                    <label>h:</label>
+                                    <input type="number" id="trapezoid-h" placeholder="Высота" step="0.1" min="0.1" value="4">
+                                </div>
+                            </div>
+                            
+                            <button class="calculate-btn" onclick="calculateTrapezoid()">
+                                <i class="fas fa-calculator"></i> Вычислить
+                            </button>
+                            
+                            <div class="results">
+                                <div class="result-item">
+                                    <span>Периметр:</span>
+                                    <span id="trapezoid-perimeter">-</span>
+                                </div>
+                                <div class="result-item">
+                                    <span>Площадь (через основания):</span>
+                                    <span id="trapezoid-area-bases">-</span>
+                                </div>
+                                <div class="result-item">
+                                    <span>Площадь (через ср. линию):</span>
+                                    <span id="trapezoid-area-midline">-</span>
+                                </div>
+                                <div class="result-item">
+                                    <span>Средняя линия:</span>
+                                    <span id="trapezoid-midline">-</span>
+                                </div>
+                            </div>
+                            
+                            <div class="error-message" id="trapezoid-error"></div>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- раздел 6: ФОРМУЛЫ ПЛОЩАДИ -->
+            <section>
+    <section>
+        <h2>Формулы площади фигур</h2>
+        <p>Площадь — мера поверхности, ограниченной замкнутой фигурой</p>
+    </section>
+
+    <section>
+        <div class="formula-section">
+            <div class="formula-title">
+                <i class="fas fa-circle"></i>
+                Площадь круга
+            </div>
+            <p><strong>Формулы:</strong></p>
+            <p>1. <span class="formula">S = πr²</span> (через радиус)</p>
+            <p>2. <span class="formula">S = (P²)/(4π)</span> (через периметр)</p>
+            
+            <div class="example">
+                <p><strong>Пример:</strong> Круг с радиусом 3 см</p>
+                <p>S = π × 3² = 9π ≈ 28.27 см²</p>
+            </div>
+        </div>
+
+        <div class="formula-section">
+            <div class="formula-title">
+                <i class="fas fa-square"></i>
+                Площадь квадрата
+            </div>
+            <p><strong>Формулы:</strong></p>
+            <p>1. <span class="formula">S = a²</span> (через сторону)</p>
+            <p>2. <span class="formula">S = d²/2</span> (через диагональ)</p>
+            
+            <div class="example">
+                <p><strong>Пример:</strong> Квадрат со стороной 5 см</p>
+                <p>S = 5² = 25 см²</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="formula-section">
+            <div class="formula-title">
+                <i class="fas fa-play"></i>
+                Площадь треугольника
+            </div>
+            <p><strong>Формулы:</strong></p>
+            <p>1. <span class="formula">S = ½ × a × h</span> (через основание и высоту)</p>
+            <p>2. <span class="formula">S = ½ × a × b × sin(γ)</span> (через 2 стороны и угол)</p>
+            <p>3. <span class="formula">S = √[p(p-a)(p-b)(p-c)]</span> (формула Герона)</p>
+            <p>где p = (a+b+c)/2 — полупериметр</p>
+            
+            <div class="example">
+                <p><strong>Пример:</strong> Треугольник со сторонами 3, 4, 5 см</p>
+                <p>p = (3+4+5)/2 = 6, S = √[6×(6-3)×(6-4)×(6-5)] = √[6×3×2×1] = √36 = 6 см²</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="formula-section">
+            <div class="formula-title">
+                <i class="fas fa-shapes"></i>
+                Площадь параллелограмма
+            </div>
+            <p><strong>Формулы:</strong></p>
+            <p>1. <span class="formula">S = a × h</span> (через основание и высоту)</p>
+            <p>2. <span class="formula">S = a × b × sin(α)</span> (через 2 стороны и угол)</p>
+            
+            <div class="example">
+                <p><strong>Пример:</strong> Параллелограмм: a=5 см, h=4 см</p>
+                <p>S = 5 × 4 = 20 см²</p>
+            </div>
+        </div>
+
+        <div class="formula-section">
+            <div class="formula-title">
+                <i class="fas fa-traffic-cone"></i>
+                Площадь трапеции
+            </div>
+            <p><strong>Формулы:</strong></p>
+            <p>1. <span class="formula">S = ½ × (a + b) × h</span> (через основания и высоту)</p>
+            <p>2. <span class="formula">S = m × h</span> (через среднюю линию и высоту)</p>
+            <p>где m = (a + b)/2 — средняя линия</p>
+            
+            <div class="example">
+                <p><strong>Пример:</strong> Трапеция: a=4 см, b=6 см, h=5 см</p>
+                <p>S = ½ × (4+6) × 5 = 25 см²</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="formula-section">
+            <div class="formula-title">
+                <i class="fas fa-gem"></i>
+                Площадь ромба
+            </div>
+            <p><strong>Формулы:</strong></p>
+            <p>1. <span class="formula">S = a × h</span> (через сторону и высоту)</p>
+            <p>2. <span class="formula">S = a² × sin(α)</span> (через сторону и угол)</p>
+            <p>3. <span class="formula">S = ½ × d₁ × d₂</span> (через диагонали)</p>
+            
+            <div class="example">
+                <p><strong>Пример:</strong> Ромб: a=6 см, h=4 см</p>
+                <p>S = 6 × 4 = 24 см²</p>
+            </div>
+        </div>
+    </section>
+</section>
+            <!-- раздел 7: КОД ПРОГРАММ -->
+            <section class="code-slide">
+                <section>
+                    <h3>JavaScript: Основные функции проверки</h3>
+                    <div class="code-container">
+<div class="code-line"><span class="code-comment">// Проверка существования треугольника по неравенству треугольника</span></div>
+<div class="code-line"><span class="code-keyword">function</span> <span class="code-function">isValidTriangle</span>(a, b, c) {</div>
+<div class="code-line">  <span class="code-keyword">return</span> a + b > c && a + c > b && b + c > a;</div>
+<div class="code-line">}</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-comment">// Формула Герона для площади треугольника</span></div>
+<div class="code-line"><span class="code-keyword">function</span> <span class="code-function">triangleAreaHeron</span>(a, b, c) {</div>
+<div class="code-line">  <span class="code-keyword">const</span> p = (a + b + c) / 2;</div>
+<div class="code-line">  <span class="code-keyword">return</span> <span class="function">Math</span>.<span class="function">sqrt</span>(p * (p - a) * (p - b) * (p - c));</div>
+<div class="code-line">}</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-comment">// Преобразование градусов в радианы</span></div>
+<div class="code-line"><span class="code-keyword">function</span> <span class="code-function">toRadians</span>(degrees) {</div>
+<div class="code-line">  <span class="code-keyword">return</span> degrees * <span class="function">Math</span>.<span class="function">PI</span> / 180;</div>
+<div class="code-line">}</div>
+                    </div>
+                </section>
+
+                <section>
+                    <h3>JavaScript: Функции для круга</h3>
+                    <div class="code-container">
+<div class="code-line"><span class="code-keyword">function</span> <span class="code-function">calculateCircle</span>() {</div>
+<div class="code-line">  <span class="code-keyword">const</span> r = <span class="function">parseFloat</span>(<span class="function">document</span>.<span class="function">getElementById</span>(<span class="string">'circle-r'</span>).value);</div>
+<div class="code-line">  <span class="code-keyword">const</span> errorElement = <span class="function">document</span>.<span class="function">getElementById</span>(<span class="string">'circle-error'</span>);</div>
+<div class="code-line">  </div>
+<div class="code-line">  <span class="code-keyword">if</span> (isNaN(r) || r <= 0) {</div>
+<div class="code-line">    errorElement.textContent = <span class="string">'Ошибка: радиус должен быть положительным числом'</span>;</div>
+<div class="code-line">    <span class="code-keyword">return</span>;</div>
+<div class="code-line">  }</div>
+<div class="code-line">  </div>
+<div class="code-line">  errorElement.textContent = '';</div>
+<div class="code-line">  <span class="code-keyword">const</span> perimeter = 2 * <span class="function">Math</span>.<span class="function">PI</span> * r;</div>
+<div class="code-line">  <span class="code-keyword">const</span> area = <span class="function">Math</span>.<span class="function">PI</span> * r * r;</div>
+<div class="code-line">  <span class="code-keyword">const</span> diameter = 2 * r;</div>
+<div class="code-line">  </div>
+<div class="code-line">  <span class="function">document</span>.<span class="function">getElementById</span>(<span class="string">'circle-perimeter'</span>).textContent = perimeter.<span class="function">toFixed</span>(2);</div>
+<div class="code-line">  <span class="function">document</span>.<span class="function">getElementById</span>(<span class="string">'circle-area'</span>).textContent = area.<span class="function">toFixed</span>(2);</div>
+<div class="code-line">  <span class="function">document</span>.<span class="function">getElementById</span>(<span class="string">'circle-diameter'</span>).textContent = diameter.<span class="function">toFixed</span>(2);</div>
+<div class="code-line">}</div>
+                    </div>
+                </section>
+
+                <section>
+                    <h3>JavaScript: Функции для треугольника</h3>
+                    <div class="code-container">
+<div class="code-line"><span class="code-keyword">function</span> <span class="code-function">calculateTriangle</span>() {</div>
+<div class="code-line">  <span class="code-keyword">const</span> a = <span class="function">parseFloat</span>(<span class="function">document</span>.<span class="function">getElementById</span>(<span class="string">'triangle-a'</span>).value);</div>
+<div class="code-line">  <span class="code-keyword">const</span> b = <span class="function">parseFloat</span>(<span class="function">document</span>.<span class="function">getElementById</span>(<span class="string">'triangle-b'</span>).value);</div>
+<div class="code-line">  <span class="code-keyword">const</span> c = <span class="function">parseFloat</span>(<span class="function">document</span>.<span class="function">getElementById</span>(<span class="string">'triangle-c'</span>).value);</div>
+<div class="code-line">  <span class="code-keyword">const</span> errorElement = <span class="function">document</span>.<span class="function">getElementById</span>(<span class="string">'triangle-error'</span>);</div>
+<div class="code-line">  </div>
+<div class="code-line">  <span class="code-keyword">if</span> (isNaN(a) || isNaN(b) || isNaN(c) || a <= 0 || b <= 0 || c <= 0) {</div>
+<div class="code-line">    errorElement.textContent = <span class="string">'Ошибка: все стороны должны быть положительными числами'</span>;</div>
+<div class="code-line">    <span class="code-keyword">return</span>;</div>
+<div class="code-line">  }</div>
+<div class="code-line">  </div>
+<div class="code-line">  <span class="code-keyword">const</span> isValid = <span class="function">isValidTriangle</span>(a, b, c);</div>
+<div class="code-line">  <span class="code-keyword">const</span> perimeter = a + b + c;</div>
+<div class="code-line">  <span class="code-keyword">let</span> area = 0;</div>
+<div class="code-line">  </div>
+<div class="code-line">  <span class="code-keyword">if</span> (isValid) {</div>
+<div class="code-line">    area = <span class="function">triangleAreaHeron</span>(a, b, c);</div>
+<div class="code-line">    errorElement.textContent = '';</div>
+<div class="code-line">  } <span class="code-keyword">else</span> {</div>
+<div class="code-line">    errorElement.textContent = <span class="string">'Треугольник не существует: нарушено неравенство треугольника'</span>;</div>
+<div class="code-line">  }</div>
+<div class="code-line">  </div>
+<div class="code-line">  <span class="function">document</span>.<span class="function">getElementById</span>(<span class="string">'triangle-perimeter'</span>).textContent = perimeter.<span class="function">toFixed</span>(2);</div>
+<div class="code-line">  <span class="function">document</span>.<span class="function">getElementById</span>(<span class="string">'triangle-area'</span>).textContent = isValid ? area.<span class="function">toFixed</span>(2) : <span class="string">'Н/Д'</span>;</div>
+<div class="code-line">  <span class="function">document</span>.<span class="function">getElementById</span>(<span class="string">'triangle-exists'</span>).textContent = isValid ? <span class="string">'Да'</span> : <span class="string">'Нет'</span>;</div>
+<div class="code-line">}</div>
+                    </div>
+                </section>
+
+                <section>
+                    <h3>JavaScript: Функции для трапеции</h3>
+                    <div class="code-container">
+<div class="code-line"><span class="code-keyword">function</span> <span class="code-function">calculateTrapezoid</span>() {</div>
+<div class="code-line">  <span class="code-keyword">const</span> a = <span class="function">parseFloat</span>(<span class="function">document</span>.<span class="function">getElementById</span>(<span class="string">'trapezoid-a'</span>).value);</div>
+<div class="code-line">  <span class="code-keyword">const</span> b = <span class="function">parseFloat</span>(<span class="function">document</span>.<span class="function">getElementById</span>(<span class="string">'trapezoid-b'</span>).value);</div>
+<div class="code-line">  <span class="code-keyword">const</span> c = <span class="function">parseFloat</span>(<span class="function">document</span>.<span class="function">getElementById</span>(<span class="string">'trapezoid-c'</span>).value);</div>
+<div class="code-line">  <span class="code-keyword">const</span> d = <span class="function">parseFloat</span>(<span class="function">document</span>.<span class="function">getElementById</span>(<span class="string">'trapezoid-d'</span>).value);</div>
+<div class="code-line">  <span class="code-keyword">const</span> h = <span class="function">parseFloat</span>(<span class="function">document</span>.<span class="function">getElementById</span>(<span class="string">'trapezoid-h'</span>).value);</div>
+<div class="code-line">  <span class="code-keyword">const</span> errorElement = <span class="function">document</span>.<span class="function">getElementById</span>(<span class="string">'trapezoid-error'</span>);</div>
+<div class="code-line">  </div>
+<div class="code-line">  <span class="code-keyword">if</span> ([a, b, c, d, h].some(val => isNaN(val) || val <= 0)) {</div>
+<div class="code-line">    errorElement.textContent = <span class="string">'Ошибка: все значения должны быть положительными числами'</span>;</div>
+<div class="code-line">    <span class="code-keyword">return</span>;</div>
+<div class="code-line">  }</div>
+<div class="code-line">  </div>
+<div class="code-line">  errorElement.textContent = '';</div>
+<div class="code-line">  <span class="code-keyword">const</span> perimeter = a + b + c + d;</div>
+<div class="code-line">  <span class="code-keyword">const</span> areaBases = ((a + b) * h) / 2;</div>
+<div class="code-line">  <span class="code-keyword">const</span> midline = (a + b) / 2;</div>
+<div class="code-line">  <span class="code-keyword">const</span> areaMidline = midline * h;</div>
+<div class="code-line">  </div>
+<div class="code-line">  <span class="function">document</span>.<span class="function">getElementById</span>(<span class="string">'trapezoid-perimeter'</span>).textContent = perimeter.<span class="function">toFixed</span>(2);</div>
+<div class="code-line">  <span class="function">document</span>.<span class="function">getElementById</span>(<span class="string">'trapezoid-area-bases'</span>).textContent = areaBases.<span class="function">toFixed</span>(2);</div>
+<div class="code-line">  <span class="function">document</span>.<span class="function">getElementById</span>(<span class="string">'trapezoid-area-midline'</span>).textContent = areaMidline.<span class="function">toFixed</span>(2);</div>
+<div class="code-line">  <span class="function">document</span>.<span class="function">getElementById</span>(<span class="string">'trapezoid-midline'</span>).textContent = midline.<span class="function">toFixed</span>(2);</div>
+<div class="code-line">}</div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- раздел 8: ВЕСЁЛЫЕ КАРТИНКИ -->
+            <section>
+                <section class="image-slide">
+                    <h2>Геометрия с юмором</h2>
+                    <p>Весёлые иллюстрации на тему геометрии</p>
+                </section>
+
+                <section class="image-slide">
+                    <h3>Когда математик рисует круг</h3>
+                    <img src="https://i.imgur.com/WzDK0eE.png" 
+                         alt="Идеальный круг" class="fun-image">
+                    <p class="caption">"Я нарисовал этот круг с помощью компаса, π и надежды"</p>
+                </section>
+
+                <section class="image-slide">
+                    <h3>Треугольники в жизни</h3>
+                    <img src="https://i.imgur.com/1pwxF7t.png" 
+                         alt="Треугольники везде" class="fun-image">
+                    <p class="caption">"Везде, куда ни глянь — треугольники. Это заговор!"</p>
+                </section>
+
+                <section class="image-slide">
+                    <h3>Квадратное мышление</h3>
+                    <img src="https://i.imgur.com/gX2vG8y.png" 
+                         alt="Квадратный мир" class="fun-image">
+                    <p class="caption">"Мой мозг, когда пытается думать нестандартно"</p>
+                </section>
+
+                <section class="image-slide">
+                    <h3>Пифагор сегодня</h3>
+                    <img src="https://i.imgur.com/3qZvL8R.png" 
+                         alt="Теорема Пифагора" class="fun-image">
+                    <p class="caption">"a² + b² = c² — формула для расчёта длины гипотенузы и оправдания своего выбора пиццы"</p>
+                </section>
+            </section>
+
+            <!-- заключительный -->
+            <section>
+                <h2>Спасибо за внимание!</h2>
+                <div class="author-info">
+                    <p><i class="fas fa-user"></i> <strong>Ярышина Даниэла Павловна</strong></p>
+                    <p><i class="fas fa-users"></i> Группа: Микн 4 курс</p>
+                </div>
+                
+                <div class="example" style="background: #e8f5e9;">
+                    <p><strong>Презентация включает:</strong></p>
+                    <ul>
+                        <li>6 геометрических фигур с определениями</li>
+                        <li>Формулы периметра и площади для каждой фигуры</li>
+                        <li>6 интерактивных калькуляторов с проверкой существования фигур</li>
+                        <li>Примеры вычислений для каждой формулы</li>
+                        <li>Исходный код JavaScript программ</li>
+                        <li>4 юмористические иллюстрации по теме</li>
+                    </ul>
+                </div>
+                
+                <div style="text-align: center; margin-top: 20px;">
+                    <p style="font-style: italic; color: var(--primary-color);">
+                        "Геометрия — это искусство правильно рассуждать на неправильных чертежах"
+                    </p>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- подключение библиотек -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
+    
+    <script>
+        // иниц Reveal.js
+        Reveal.initialize({
+            hash: true,
+            transition: 'slide',
+            backgroundTransition: 'fade',
+            width: "100%",
+            height: "100%",
+            margin: 0.04,
+            
+            controls: true,
+            progress: true,
+            center: true,
+            slideNumber: true
+        });
+        
+        // обновляем индикатор прогресса
+        function updateProgress() {
+            const totalSlides = document.querySelectorAll('.slides section').length;
+            const currentSlide = Reveal.getState().indexh + 1;
+            const progress = (currentSlide / totalSlides) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+        
+        Reveal.addEventListener('slidechanged', updateProgress);
+        Reveal.addEventListener('ready', updateProgress);
+        
+        // ГЕОМЕТРИЧЕСКИЕ ФУНКЦИИ
+        function toRadians(degrees) {
+            return degrees * Math.PI / 180;
+        }
+        
+        function isValidTriangle(a, b, c) {
+            return a + b > c && a + c > b && b + c > a;
+        }
+        
+        function triangleAreaHeron(a, b, c) {
+            const p = (a + b + c) / 2;
+            return Math.sqrt(p * (p - a) * (p - b) * (p - c));
+        }
+        
+        // КРУГ
+        function calculateCircle() {
+    const rInput = document.getElementById('circle-r-input');
+    const rText = document.getElementById('circle-r');
+    
+    // Синхронизация значений
+    const r = parseFloat(rInput.value);
+    rText.value = r;
+    
+    const errorElement = document.getElementById('circle-error');
+    
+    if (isNaN(r) || r <= 0) {
+        errorElement.textContent = 'Ошибка: радиус должен быть положительным числом';
+        return;
+    }
+    
+    errorElement.textContent = '';
+    const perimeter = 2 * Math.PI * r;
+    const area = Math.PI * r * r;
+    const diameter = 2 * r;
+    
+    // Обновление значений на рисунке
+    document.getElementById('circle-p-value').textContent = perimeter.toFixed(1);
+    document.getElementById('circle-s-value').textContent = area.toFixed(1);
+    
+    // Обновление результатов
+    document.getElementById('circle-perimeter').textContent = perimeter.toFixed(2);
+    document.getElementById('circle-area').textContent = area.toFixed(2);
+    document.getElementById('circle-diameter').textContent = diameter.toFixed(2);
+}
+        
+       function calculateSquare() {
+    const aInput = document.getElementById('square-a-input');
+    const aText = document.getElementById('square-a');
+    
+    // Синхронизация значений
+    const a = parseFloat(aInput.value);
+    aText.value = a;
+    
+    const errorElement = document.getElementById('square-error');
+    
+    if (isNaN(a) || a <= 0) {
+        errorElement.textContent = 'Ошибка: сторона должна быть положительным числом';
+        return;
+    }
+    
+    errorElement.textContent = '';
+    const perimeter = 4 * a;
+    const area = a * a;
+    const diagonal = a * Math.sqrt(2);
+    
+    // Обновление значений на рисунке
+    document.getElementById('square-p-value').textContent = perimeter.toFixed(1);
+    document.getElementById('square-s-value').textContent = area.toFixed(1);
+    
+    // Обновление результатов
+    document.getElementById('square-perimeter').textContent = perimeter.toFixed(2);
+    document.getElementById('square-area').textContent = area.toFixed(2);
+    document.getElementById('square-diagonal').textContent = diagonal.toFixed(2);
+}
+
+// Добавить обработчики для синхронизации полей ввода
+document.getElementById('circle-r-input')?.addEventListener('input', function() {
+    document.getElementById('circle-r').value = this.value;
+    calculateCircle();
+});
+
+document.getElementById('circle-r')?.addEventListener('input', function() {
+    document.getElementById('circle-r-input').value = this.value;
+    calculateCircle();
+});
+
+document.getElementById('square-a-input')?.addEventListener('input', function() {
+    document.getElementById('square-a').value = this.value;
+    calculateSquare();
+});
+
+document.getElementById('square-a')?.addEventListener('input', function() {
+    document.getElementById('square-a-input').value = this.value;
+    calculateSquare();
+});
+        
+       function calculateTriangle() {
     const aInput = document.getElementById('triangle-a-input');
     const bInput = document.getElementById('triangle-b-input');
     const cInput = document.getElementById('triangle-c-input');
@@ -59,3 +1530,102 @@ function calculateTriangle() {
         });
     }
 });
+        
+        // РОМБ
+        function calculateRhombus() {
+            const a = parseFloat(document.getElementById('rhombus-a').value);
+            const h = parseFloat(document.getElementById('rhombus-h').value);
+            const angle = parseFloat(document.getElementById('rhombus-angle').value);
+            const errorElement = document.getElementById('rhombus-error');
+            
+            if (isNaN(a) || a <= 0 || isNaN(h) || h <= 0 || isNaN(angle) || angle <= 0 || angle >= 180) {
+                errorElement.textContent = 'Ошибка: проверьте корректность введённых значений';
+                return;
+            }
+            
+            errorElement.textContent = '';
+            const perimeter = 4 * a;
+            const areaHeight = a * h;
+            const areaAngle = a * a * Math.sin(toRadians(angle));
+            
+            document.getElementById('rhombus-perimeter').textContent = perimeter.toFixed(2);
+            document.getElementById('rhombus-area-height').textContent = areaHeight.toFixed(2);
+            document.getElementById('rhombus-area-angle').textContent = areaAngle.toFixed(2);
+        }
+        
+        // ПАРАЛЛЕЛОГРАММ
+        function calculateParallelogram() {
+            const a = parseFloat(document.getElementById('parallelogram-a').value);
+            const b = parseFloat(document.getElementById('parallelogram-b').value);
+            const h = parseFloat(document.getElementById('parallelogram-h').value);
+            const angle = parseFloat(document.getElementById('parallelogram-angle').value);
+            const errorElement = document.getElementById('parallelogram-error');
+            
+            if ([a, b, h].some(val => isNaN(val) || val <= 0) || isNaN(angle) || angle <= 0 || angle >= 180) {
+                errorElement.textContent = 'Ошибка: проверьте корректность введённых значений';
+                return;
+            }
+            
+            errorElement.textContent = '';
+            const perimeter = 2 * (a + b);
+            const areaHeight = a * h;
+            const areaAngle = a * b * Math.sin(toRadians(angle));
+            
+            document.getElementById('parallelogram-perimeter').textContent = perimeter.toFixed(2);
+            document.getElementById('parallelogram-area-height').textContent = areaHeight.toFixed(2);
+            document.getElementById('parallelogram-area-angle').textContent = areaAngle.toFixed(2);
+        }
+        
+        // ТРАПЕЦИЯ
+        function calculateTrapezoid() {
+            const a = parseFloat(document.getElementById('trapezoid-a').value);
+            const b = parseFloat(document.getElementById('trapezoid-b').value);
+            const c = parseFloat(document.getElementById('trapezoid-c').value);
+            const d = parseFloat(document.getElementById('trapezoid-d').value);
+            const h = parseFloat(document.getElementById('trapezoid-h').value);
+            const errorElement = document.getElementById('trapezoid-error');
+            
+            if ([a, b, c, d, h].some(val => isNaN(val) || val <= 0)) {
+                errorElement.textContent = 'Ошибка: все значения должны быть положительными числами';
+                return;
+            }
+            
+            errorElement.textContent = '';
+            const perimeter = a + b + c + d;
+            const areaBases = ((a + b) * h) / 2;
+            const midline = (a + b) / 2;
+            const areaMidline = midline * h;
+            
+            document.getElementById('trapezoid-perimeter').textContent = perimeter.toFixed(2);
+            document.getElementById('trapezoid-area-bases').textContent = areaBases.toFixed(2);
+            document.getElementById('trapezoid-area-midline').textContent = areaMidline.toFixed(2);
+            document.getElementById('trapezoid-midline').textContent = midline.toFixed(2);
+        }
+        
+        // Автоматическое вычисление при изменении значений
+        document.querySelectorAll('input[type="number"]').forEach(input => {
+            input.addEventListener('input', function() {
+                const id = this.id;
+                if (id.includes('circle')) calculateCircle();
+                if (id.includes('square')) calculateSquare();
+                if (id.includes('triangle')) calculateTriangle();
+                if (id.includes('rhombus')) calculateRhombus();
+                if (id.includes('parallelogram')) calculateParallelogram();
+                if (id.includes('trapezoid')) calculateTrapezoid();
+            });
+        });
+        
+        // Инициализация всех калькуляторов при загрузке
+        window.addEventListener('load', function() {
+            [calculateCircle, calculateSquare, calculateTriangle, 
+             calculateRhombus, calculateParallelogram, calculateTrapezoid].forEach(func => {
+                try {
+                    func();
+                } catch(e) {
+                    console.log("Калькулятор ещё не загружен:", e);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
