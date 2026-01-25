@@ -7,7 +7,7 @@
     
     <!-- reveal.js CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/simple.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/league.min.css">
     
     <!-- font awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -15,11 +15,11 @@
     <!-- стили -->
     <style>
         :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
             --accent-color: #e74c3c;
             --success-color: #2ecc71;
-            --figure-bg: #f8f9fa;
+            --figure-bg: #1a1a2e;
         }
         
         * {
@@ -31,7 +31,7 @@
             margin: 0;
             padding: 0;
             overflow: hidden;
-            background: #f5f5f5;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
         
         .reveal {
@@ -57,43 +57,47 @@
             justify-content: center;
             box-sizing: border-box;
             overflow-y: auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
         
         /* размеры текста */
         .reveal h1 {
-            font-size: 2rem;
+            font-size: 2.5rem;
             color: var(--primary-color);
-            margin-bottom: 0.8rem;
-            border-bottom: 2px solid var(--secondary-color);
+            margin-bottom: 1rem;
+            border-bottom: 3px solid var(--secondary-color);
             padding-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
         
         .reveal h2 {
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             color: var(--secondary-color);
-            margin-bottom: 0.7rem;
+            margin-bottom: 0.8rem;
         }
         
         .reveal h3 {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             color: var(--primary-color);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.6rem;
         }
         
         .reveal p, .reveal li {
-            font-size: 1rem;
-            line-height: 1.3;
-            margin-bottom: 0.4rem;
+            font-size: 1.1rem;
+            line-height: 1.5;
+            margin-bottom: 0.5rem;
         }
         
         .reveal ul, .reveal ol {
-            margin-left: 1.2rem;
-            margin-bottom: 0.6rem;
+            margin-left: 1.5rem;
+            margin-bottom: 0.8rem;
         }
         
         /* стили для слайда с содержанием */
         .toc-slide {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
             color: white;
         }
         
@@ -107,176 +111,215 @@
             padding: 0;
             margin: 0;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 12px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
         }
         
         .toc-item {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 12px;
-            border-radius: 6px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            background: rgba(255, 255, 255, 0.15);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             border-left: 4px solid var(--success-color);
-            color: var(--primary-color);
+            color: white;
+            transition: transform 0.3s, background 0.3s;
+        }
+        
+        .toc-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.25);
         }
         
         .toc-number {
             display: inline-block;
-            width: 22px;
-            height: 22px;
+            width: 26px;
+            height: 26px;
             background: var(--success-color);
             color: white;
             border-radius: 50%;
             text-align: center;
-            line-height: 22px;
-            margin-right: 8px;
-            font-size: 0.8rem;
+            line-height: 26px;
+            margin-right: 10px;
+            font-size: 0.9rem;
+            font-weight: bold;
         }
         
         /* Геометрические фигуры */
         .figure-slide {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            gap: 25px;
         }
         
         .figure-container {
-            background: var(--figure-bg);
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            border: 2px solid var(--secondary-color);
+            background: linear-gradient(145deg, #f0f0f0, #ffffff);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            border: 2px solid var(--primary-color);
+            transition: transform 0.3s;
+        }
+        
+        .figure-container:hover {
+            transform: translateY(-5px);
         }
         
         .figure-title {
             color: var(--accent-color);
             font-weight: bold;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             text-align: center;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
         }
         
         .figure-svg {
-            width: 180px;
-            height: 180px;
-            margin: 0 auto 15px;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 20px;
             display: block;
             background: white;
-            border-radius: 8px;
-            padding: 10px;
-            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            border: 2px solid #ddd;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
         
         .input-group {
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            margin-bottom: 15px;
+            gap: 12px;
+            margin-bottom: 20px;
         }
         
         .input-row {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
         
         .input-row label {
-            min-width: 30px;
+            min-width: 35px;
             font-weight: bold;
             color: var(--primary-color);
         }
         
         .input-row input {
             flex: 1;
-            padding: 6px 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 0.9rem;
+            padding: 8px 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border 0.3s;
+        }
+        
+        .input-row input:focus {
+            border-color: var(--primary-color);
+            outline: none;
         }
         
         .calculate-btn {
-            background: var(--secondary-color);
+            background: linear-gradient(135deg, var(--primary-color), #2980b9);
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
+            padding: 12px 24px;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 1rem;
+            font-size: 1.1rem;
             width: 100%;
-            margin-bottom: 15px;
-            transition: background 0.3s;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
         }
         
         .calculate-btn:hover {
-            background: #2980b9;
+            background: linear-gradient(135deg, #2980b9, var(--primary-color));
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
         }
         
         .results {
-            background: white;
-            border-radius: 6px;
-            padding: 15px;
-            border-left: 4px solid var(--success-color);
+            background: linear-gradient(145deg, #e3f2fd, #bbdefb);
+            border-radius: 8px;
+            padding: 20px;
+            border-left: 5px solid var(--success-color);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
         
         .result-item {
             display: flex;
             justify-content: space-between;
-            padding: 6px 0;
-            border-bottom: 1px solid #eee;
-            font-size: 0.9rem;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            font-size: 1rem;
+        }
+        
+        .result-item:last-child {
+            border-bottom: none;
         }
         
         .error-message {
             color: var(--accent-color);
-            font-size: 0.8rem;
-            margin-top: 5px;
-            min-height: 20px;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            min-height: 25px;
+            padding: 5px 10px;
+            background: rgba(231, 76, 60, 0.1);
+            border-radius: 5px;
+            border-left: 3px solid var(--accent-color);
         }
         
         /* Формулы */
         .formula-section {
-            background: white;
-            border-radius: 8px;
-            padding: 20px;
-            margin: 10px 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            background: linear-gradient(145deg, #f8f9fa, #e9ecef);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 15px 0;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            border: 1px solid #dee2e6;
         }
         
         .formula {
             font-family: 'Courier New', monospace;
-            background: #e8f4fc;
-            padding: 8px 12px;
-            border-radius: 4px;
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            padding: 10px 15px;
+            border-radius: 6px;
             display: inline-block;
-            margin: 4px 0;
+            margin: 5px 0;
+            font-weight: bold;
+            color: #1565c0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
         
         .formula-title {
             color: var(--accent-color);
             font-weight: bold;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            font-size: 1.2rem;
         }
         
         /* Примеры */
         .example {
-            background: #fff;
-            border-radius: 8px;
-            padding: 15px;
-            margin: 10px 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            border-left: 4px solid var(--accent-color);
+            background: linear-gradient(145deg, #e8f5e9, #c8e6c9);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-left: 5px solid #4caf50;
         }
         
         .example-title {
-            color: var(--accent-color);
+            color: #2e7d32;
             font-weight: bold;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
         
         /* Изображения */
@@ -285,47 +328,59 @@
         }
         
         .fun-image {
-            max-width: 50%;
-            max-height: 200px;
+            max-width: 60%;
+            max-height: 250px;
             object-fit: contain;
-            border-radius: 8px;
-            margin: 10px auto;
+            border-radius: 15px;
+            margin: 20px auto;
             display: block;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            border: 3px solid white;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+            border: 5px solid white;
+            transition: transform 0.3s;
+        }
+        
+        .fun-image:hover {
+            transform: scale(1.05);
         }
         
         .caption {
             text-align: center;
             font-style: italic;
             color: #666;
-            font-size: 0.9rem;
-            margin-top: 8px;
+            font-size: 1rem;
+            margin-top: 10px;
+            padding: 10px;
+            background: rgba(255,255,255,0.8);
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
         }
         
         /* Стили для слайдов с кодом */
         .code-slide {
-            background: #2d2d2d !important;
+            background: linear-gradient(135deg, #2d2d2d, #1a1a1a) !important;
             color: #f8f8f2 !important;
         }
         
         .code-slide h3 {
             color: #66d9ef !important;
-            border-bottom: 2px solid #66d9ef;
-            padding-bottom: 10px;
+            border-bottom: 3px solid #66d9ef;
+            padding-bottom: 15px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
         
         .code-container {
-            background: #1e1e1e;
-            border-radius: 8px;
-            padding: 15px;
-            margin: 15px 0;
+            background: rgba(30, 30, 30, 0.9);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
             font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-            font-size: 0.9rem;
-            line-height: 1.4;
+            font-size: 1rem;
+            line-height: 1.5;
             overflow-x: auto;
-            max-height: 300px;
+            max-height: 350px;
             overflow-y: auto;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            border: 1px solid #444;
         }
         
         .code-keyword {
@@ -353,16 +408,24 @@
         }
         
         .code-line {
-            margin-bottom: 3px;
+            margin-bottom: 5px;
+            padding-left: 10px;
+            border-left: 2px solid transparent;
+        }
+        
+        .code-line:hover {
+            border-left: 2px solid #66d9ef;
+            background: rgba(102, 217, 239, 0.05);
         }
         
         /* об авторе */
         .author-info {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 15px;
-            border-left: 4px solid var(--secondary-color);
+            background: linear-gradient(145deg, #e3f2fd, #bbdefb);
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            border-left: 5px solid var(--primary-color);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
         
         /* Прогресс бар */
@@ -371,16 +434,17 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 4px;
-            background: rgba(0,0,0,0.1);
+            height: 6px;
+            background: rgba(0,0,0,0.2);
             z-index: 1000;
         }
         
         .progress-bar {
             height: 100%;
-            background: var(--secondary-color);
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
             width: 0%;
             transition: width 0.3s ease;
+            box-shadow: 0 2px 10px rgba(52, 152, 219, 0.5);
         }
         
         @media (max-width: 768px) {
@@ -389,19 +453,19 @@
             }
             
             .reveal h1 {
-                font-size: 1.6rem;
+                font-size: 1.8rem;
             }
             
             .reveal h2 {
-                font-size: 1.3rem;
+                font-size: 1.5rem;
             }
             
             .reveal h3 {
-                font-size: 1.1rem;
+                font-size: 1.2rem;
             }
             
             .reveal p, .reveal li {
-                font-size: 0.9rem;
+                font-size: 1rem;
             }
             
             .toc-list {
@@ -413,7 +477,7 @@
             }
             
             .fun-image {
-                max-width: 95%;
+                max-width: 90%;
             }
         }
         
@@ -429,10 +493,24 @@
         
         /* подсказки */
         .hint {
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             color: #666;
             font-style: italic;
-            margin: 5px 0;
+            margin: 10px 0;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 5px;
+            border-left: 4px solid var(--secondary-color);
+        }
+        
+        /* Анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .reveal .slides section {
+            animation: fadeIn 0.5s ease-out;
         }
     </style>
 </head>
@@ -449,8 +527,9 @@
                     <h1>Геометрические фигуры: Периметр и Площадь</h1>
                     <h2>Интерактивная презентация</h2>
                     <div class="author-info">
-                        <p><i class="fas fa-user"></i> <strong>Ярышина Даниэла Павловна</strong></p>
-                        <p><i class="fas fa-users"></i> Группа: Микн 4 курс</p>
+                        <p><i class="fas fa-user"></i> <strong>Вадим Мусалимов</strong></p>
+                        <p><i class="fas fa-graduation-cap"></i> Студент 4 курса</p>
+                        <p><i class="fas fa-university"></i> Математический факультет</p>
                     </div>
                     <p class="hint">Используйте стрелки на клавиатуре для навигации</p>
                 </div>
@@ -491,7 +570,7 @@
                         </li>
                         <li class="toc-item">
                             <span class="toc-number">8</span>
-                            Весёлые картинки
+                            Математический юмор
                         </li>
                         <li class="toc-item">
                             <span class="toc-number">9</span>
@@ -513,9 +592,9 @@
                         <div class="figure-container">
                             <div class="figure-title">Круг</div>
                             <svg class="figure-svg" viewBox="0 0 100 100">
-                                <circle cx="50" cy="50" r="45" stroke="#3498db" stroke-width="2" fill="none"/>
-                                <line x1="50" y1="50" x2="95" y2="50" stroke="#e74c3c" stroke-width="1"/>
-                                <text x="73" y="48" font-size="8" fill="#e74c3c">r</text>
+                                <circle cx="50" cy="50" r="45" stroke="#3498db" stroke-width="3" fill="none"/>
+                                <line x1="50" y1="50" x2="95" y2="50" stroke="#e74c3c" stroke-width="2"/>
+                                <text x="73" y="48" font-size="10" fill="#e74c3c" font-weight="bold">r</text>
                             </svg>
                             <p>Множество всех точек плоскости, равноудалённых от одной точки (центра).</p>
                         </div>
@@ -523,8 +602,8 @@
                         <div class="figure-container">
                             <div class="figure-title">Квадрат</div>
                             <svg class="figure-svg" viewBox="0 0 100 100">
-                                <rect x="10" y="10" width="80" height="80" stroke="#3498db" stroke-width="2" fill="none"/>
-                                <text x="40" y="55" font-size="8" fill="#2c3e50">a</text>
+                                <rect x="10" y="10" width="80" height="80" stroke="#3498db" stroke-width="3" fill="none"/>
+                                <text x="40" y="55" font-size="10" fill="#2c3e50">a</text>
                             </svg>
                             <p>Прямоугольник, у которого все стороны равны и все углы прямые.</p>
                         </div>
@@ -536,10 +615,10 @@
                         <div class="figure-container">
                             <div class="figure-title">Треугольник</div>
                             <svg class="figure-svg" viewBox="0 0 100 100">
-                                <polygon points="50,10 90,90 10,90" stroke="#3498db" stroke-width="2" fill="none"/>
-                                <text x="30" y="70" font-size="8" fill="#2c3e50">a</text>
-                                <text x="60" y="70" font-size="8" fill="#2c3e50">b</text>
-                                <text x="45" y="30" font-size="8" fill="#2c3e50">c</text>
+                                <polygon points="50,10 90,90 10,90" stroke="#3498db" stroke-width="3" fill="none"/>
+                                <text x="30" y="70" font-size="10" fill="#2c3e50">a</text>
+                                <text x="60" y="70" font-size="10" fill="#2c3e50">b</text>
+                                <text x="45" y="30" font-size="10" fill="#2c3e50">c</text>
                             </svg>
                             <p>Фигура, образованная тремя отрезками, соединяющими три точки, не лежащие на одной прямой.</p>
                         </div>
@@ -547,9 +626,9 @@
                         <div class="figure-container">
                             <div class="figure-title">Параллелограмм</div>
                             <svg class="figure-svg" viewBox="0 0 100 100">
-                                <polygon points="20,10 80,10 70,90 10,90" stroke="#3498db" stroke-width="2" fill="none"/>
-                                <text x="50" y="25" font-size="8" fill="#2c3e50">a</text>
-                                <text x="75" y="50" font-size="8" fill="#2c3e50">b</text>
+                                <polygon points="20,10 80,10 70,90 10,90" stroke="#3498db" stroke-width="3" fill="none"/>
+                                <text x="50" y="25" font-size="10" fill="#2c3e50">a</text>
+                                <text x="75" y="50" font-size="10" fill="#2c3e50">b</text>
                             </svg>
                             <p>Четырёхугольник, у которого противоположные стороны параллельны.</p>
                         </div>
@@ -561,11 +640,11 @@
                         <div class="figure-container">
                             <div class="figure-title">Трапеция</div>
                             <svg class="figure-svg" viewBox="0 0 100 100">
-                                <polygon points="20,90 80,90 70,10 30,10" stroke="#3498db" stroke-width="2" fill="none"/>
-                                <text x="25" y="50" font-size="8" fill="#2c3e50">a</text>
-                                <text x="75" y="50" font-size="8" fill="#2c3e50">b</text>
-                                <text x="50" y="20" font-size="8" fill="#2c3e50">c</text>
-                                <text x="50" y="80" font-size="8" fill="#2c3e50">d</text>
+                                <polygon points="20,90 80,90 70,10 30,10" stroke="#3498db" stroke-width="3" fill="none"/>
+                                <text x="25" y="50" font-size="10" fill="#2c3e50">a</text>
+                                <text x="75" y="50" font-size="10" fill="#2c3e50">b</text>
+                                <text x="50" y="20" font-size="10" fill="#2c3e50">c</text>
+                                <text x="50" y="80" font-size="10" fill="#2c3e50">d</text>
                             </svg>
                             <p>Четырёхугольник, у которого две стороны параллельны, а две другие — нет.</p>
                         </div>
@@ -573,8 +652,8 @@
                         <div class="figure-container">
                             <div class="figure-title">Ромб</div>
                             <svg class="figure-svg" viewBox="0 0 100 100">
-                                <polygon points="50,10 90,50 50,90 10,50" stroke="#3498db" stroke-width="2" fill="none"/>
-                                <text x="50" y="30" font-size="8" fill="#2c3e50">a</text>
+                                <polygon points="50,10 90,50 50,90 10,50" stroke="#3498db" stroke-width="3" fill="none"/>
+                                <text x="50" y="30" font-size="10" fill="#2c3e50">a</text>
                             </svg>
                             <p>Параллелограмм, у которого все стороны равны.</p>
                         </div>
@@ -693,11 +772,11 @@
                         <div class="figure-container">
                             <div class="figure-title">Круг</div>
                             <svg class="figure-svg" viewBox="0 0 100 100">
-                                <circle cx="50" cy="50" r="45" stroke="#3498db" stroke-width="2" fill="#e8f4fc"/>
+                                <circle cx="50" cy="50" r="45" stroke="#3498db" stroke-width="3" fill="#e8f4fc"/>
                                 <line x1="50" y1="50" x2="95" y2="50" stroke="#e74c3c" stroke-width="2"/>
-                                <text x="73" y="48" font-size="10" fill="#e74c3c" font-weight="bold">r</text>
-                                <text x="50" y="50" font-size="8" fill="#2c3e50" text-anchor="middle" dy=".3em">P = ?</text>
-                                <text x="50" y="60" font-size="8" fill="#2c3e50" text-anchor="middle" dy=".3em">S = ?</text>
+                                <text x="73" y="48" font-size="12" fill="#e74c3c" font-weight="bold">r</text>
+                                <text x="50" y="50" font-size="9" fill="#2c3e50" text-anchor="middle" dy=".3em">P = ?</text>
+                                <text x="50" y="60" font-size="9" fill="#2c3e50" text-anchor="middle" dy=".3em">S = ?</text>
                             </svg>
                             
                             <div class="input-group">
@@ -733,10 +812,10 @@
                         <div class="figure-container">
                             <div class="figure-title">Квадрат</div>
                             <svg class="figure-svg" viewBox="0 0 100 100">
-                                <rect x="10" y="10" width="80" height="80" stroke="#3498db" stroke-width="2" fill="#e8f4fc"/>
-                                <text x="50" y="50" font-size="10" fill="#2c3e50" text-anchor="middle" dy=".3em">a</text>
-                                <text x="50" y="60" font-size="8" fill="#2c3e50" text-anchor="middle" dy=".3em">P = ?</text>
-                                <text x="50" y="70" font-size="8" fill="#2c3e50" text-anchor="middle" dy=".3em">S = ?</text>
+                                <rect x="10" y="10" width="80" height="80" stroke="#3498db" stroke-width="3" fill="#e8f4fc"/>
+                                <text x="50" y="50" font-size="12" fill="#2c3e50" text-anchor="middle" dy=".3em">a</text>
+                                <text x="50" y="60" font-size="9" fill="#2c3e50" text-anchor="middle" dy=".3em">P = ?</text>
+                                <text x="50" y="70" font-size="9" fill="#2c3e50" text-anchor="middle" dy=".3em">S = ?</text>
                             </svg>
                             
                             <div class="input-group">
@@ -784,12 +863,12 @@
                         <div class="figure-container">
                             <div class="figure-title">Треугольник</div>
                             <svg class="figure-svg" viewBox="0 0 100 100">
-                                <polygon points="50,15 85,85 15,85" stroke="#3498db" stroke-width="2" fill="#e8f4fc"/>
-                                <text x="35" y="70" font-size="8" fill="#2c3e50">a</text>
-                                <text x="65" y="70" font-size="8" fill="#2c3e50">b</text>
-                                <text x="50" y="30" font-size="8" fill="#2c3e50">c</text>
-                                <text x="50" y="50" font-size="6" fill="#2c3e50" text-anchor="middle">P = ?</text>
-                                <text x="50" y="60" font-size="6" fill="#2c3e50" text-anchor="middle">S = ?</text>
+                                <polygon points="50,15 85,85 15,85" stroke="#3498db" stroke-width="3" fill="#e8f4fc"/>
+                                <text x="35" y="70" font-size="10" fill="#2c3e50">a</text>
+                                <text x="65" y="70" font-size="10" fill="#2c3e50">b</text>
+                                <text x="50" y="30" font-size="10" fill="#2c3e50">c</text>
+                                <text x="50" y="50" font-size="8" fill="#2c3e50" text-anchor="middle">P = ?</text>
+                                <text x="50" y="60" font-size="8" fill="#2c3e50" text-anchor="middle">S = ?</text>
                             </svg>
                             
                             <div class="input-group">
@@ -833,12 +912,12 @@
                         <div class="figure-container">
                             <div class="figure-title">Ромб</div>
                             <svg class="figure-svg" viewBox="0 0 100 100">
-                                <polygon points="50,10 90,50 50,90 10,50" stroke="#3498db" stroke-width="2" fill="#e8f4fc"/>
-                                <line x1="10" y1="50" x2="90" y2="50" stroke="#e74c3c" stroke-width="1" stroke-dasharray="3"/>
-                                <line x1="50" y1="10" x2="50" y2="90" stroke="#e74c3c" stroke-width="1" stroke-dasharray="3"/>
-                                <text x="50" y="30" font-size="8" fill="#2c3e50">a</text>
-                                <text x="30" y="50" font-size="6" fill="#e74c3c">d₁</text>
-                                <text x="70" y="50" font-size="6" fill="#e74c3c">d₂</text>
+                                <polygon points="50,10 90,50 50,90 10,50" stroke="#3498db" stroke-width="3" fill="#e8f4fc"/>
+                                <line x1="10" y1="50" x2="90" y2="50" stroke="#e74c3c" stroke-width="2" stroke-dasharray="3"/>
+                                <line x1="50" y1="10" x2="50" y2="90" stroke="#e74c3c" stroke-width="2" stroke-dasharray="3"/>
+                                <text x="50" y="30" font-size="10" fill="#2c3e50">a</text>
+                                <text x="30" y="50" font-size="8" fill="#e74c3c">d₁</text>
+                                <text x="70" y="50" font-size="8" fill="#e74c3c">d₂</text>
                             </svg>
                             
                             <div class="input-group">
@@ -894,11 +973,11 @@
                         <div class="figure-container">
                             <div class="figure-title">Параллелограмм</div>
                             <svg class="figure-svg" viewBox="0 0 100 100">
-                                <polygon points="20,15 80,15 70,85 10,85" stroke="#3498db" stroke-width="2" fill="#e8f4fc"/>
-                                <line x1="20" y1="15" x2="20" y2="85" stroke="#e74c3c" stroke-width="1"/>
-                                <text x="50" y="25" font-size="8" fill="#2c3e50">a</text>
-                                <text x="75" y="50" font-size="8" fill="#2c3e50">b</text>
-                                <text x="25" y="50" font-size="6" fill="#e74c3c">h</text>
+                                <polygon points="20,15 80,15 70,85 10,85" stroke="#3498db" stroke-width="3" fill="#e8f4fc"/>
+                                <line x1="20" y1="15" x2="20" y2="85" stroke="#e74c3c" stroke-width="2"/>
+                                <text x="50" y="25" font-size="10" fill="#2c3e50">a</text>
+                                <text x="75" y="50" font-size="10" fill="#2c3e50">b</text>
+                                <text x="25" y="50" font-size="8" fill="#e74c3c">h</text>
                             </svg>
                             
                             <div class="input-group">
@@ -946,13 +1025,13 @@
                         <div class="figure-container">
                             <div class="figure-title">Трапеция</div>
                             <svg class="figure-svg" viewBox="0 0 100 100">
-                                <polygon points="20,85 80,85 70,15 30,15" stroke="#3498db" stroke-width="2" fill="#e8f4fc"/>
-                                <line x1="30" y1="15" x2="30" y2="85" stroke="#e74c3c" stroke-width="1"/>
-                                <line x1="30" y1="50" x2="70" y2="50" stroke="#2ecc71" stroke-width="1" stroke-dasharray="3"/>
-                                <text x="25" y="50" font-size="6" fill="#e74c3c">h</text>
-                                <text x="50" y="20" font-size="6" fill="#2c3e50">a</text>
-                                <text x="50" y="80" font-size="6" fill="#2c3e50">b</text>
-                                <text x="50" y="50" font-size="5" fill="#2ecc71">m</text>
+                                <polygon points="20,85 80,85 70,15 30,15" stroke="#3498db" stroke-width="3" fill="#e8f4fc"/>
+                                <line x1="30" y1="15" x2="30" y2="85" stroke="#e74c3c" stroke-width="2"/>
+                                <line x1="30" y1="50" x2="70" y2="50" stroke="#2ecc71" stroke-width="2" stroke-dasharray="3"/>
+                                <text x="25" y="50" font-size="8" fill="#e74c3c">h</text>
+                                <text x="50" y="20" font-size="8" fill="#2c3e50">a</text>
+                                <text x="50" y="80" font-size="8" fill="#2c3e50">b</text>
+                                <text x="50" y="50" font-size="7" fill="#2ecc71">m</text>
                             </svg>
                             
                             <div class="input-group">
@@ -1205,39 +1284,100 @@
                 </section>
             </section>
 
-            <!-- раздел 8: ВЕСЁЛЫЕ КАРТИНКИ -->
+            <!-- раздел 8: МАТЕМАТИЧЕСКИЙ ЮМОР -->
             <section>
                 <section class="image-slide">
-                    <h2>Геометрия с юмором</h2>
-                    <p>Весёлые иллюстрации на тему геометрии</p>
+                    <h2>Математика с юмором</h2>
+                    <p>Весёлые иллюстрации на тему геометрии и математики</p>
                 </section>
 
                 <section class="image-slide">
-                    <h3>Когда математик рисует круг</h3>
-                    <img src="https://i.imgur.com/WzDK0eE.png" 
-                         alt="Идеальный круг" class="fun-image">
-                    <p class="caption">"Я нарисовал этот круг с помощью компаса, π и надежды"</p>
+                    <h3>Параллелограмм просит о помощи</h3>
+                    <div style="background: white; padding: 20px; border-radius: 15px; display: inline-block;">
+                        <div style="font-size: 2rem; line-height: 1.2; text-align: center; color: #e74c3c;">
+                            E<br>
+                            L<br>
+                            P<br>
+                            H<br>
+                            <div style="font-size: 3rem; font-weight: bold; margin-top: 10px; color: #3498db;">
+                                HELP
+                            </div>
+                        </div>
+                    </div>
+                    <p class="caption">"давайте поможем параллелограмму"</p>
                 </section>
 
                 <section class="image-slide">
-                    <h3>Треугольники в жизни</h3>
-                    <img src="https://i.imgur.com/1pwxF7t.png" 
-                         alt="Треугольники везде" class="fun-image">
-                    <p class="caption">"Везде, куда ни глянь — треугольники. Это заговор!"</p>
+                    <h3>Отрезок в квадрате</h3>
+                    <div style="background: white; padding: 20px; border-radius: 15px; display: inline-block;">
+                        <div style="font-size: 1.5rem; line-height: 1.3; text-align: center; color: #2c3e50; font-weight: bold;">
+                            ОБОЖАЮТОТ<br>
+                            ОТРЕЗОК<br>
+                            <br>
+                            <div style="display: flex; justify-content: center; gap: 30px; margin-top: 15px;">
+                                <div style="text-align: center;">
+                                    <div style="width: 40px; height: 40px; background: #3498db; margin: 0 auto 5px;"></div>
+                                    A
+                                </div>
+                                <div style="text-align: center;">
+                                    <div style="width: 40px; height: 40px; background: #e74c3c; margin: 0 auto 5px;"></div>
+                                    B
+                                </div>
+                                <div style="text-align: center;">
+                                    <div style="width: 40px; height: 40px; background: #2ecc71; margin: 0 auto 5px;"></div>
+                                    C
+                                </div>
+                                <div style="text-align: center;">
+                                    <div style="width: 40px; height: 40px; background: #f39c12; margin: 0 auto 5px;"></div>
+                                    D
+                                </div>
+                            </div>
+                            <div style="font-size: 2rem; color: #e74c3c; margin-top: 15px; font-weight: bold;">
+                                КРЫСА
+                            </div>
+                        </div>
+                    </div>
+                    <p class="caption">"Геометрические фигуры и их обожатели"</p>
                 </section>
 
                 <section class="image-slide">
-                    <h3>Квадратное мышление</h3>
-                    <img src="https://i.imgur.com/gX2vG8y.png" 
-                         alt="Квадратный мир" class="fun-image">
-                    <p class="caption">"Мой мозг, когда пытается думать нестандартно"</p>
+                    <h3>Математическая головоломка</h3>
+                    <div style="background: white; padding: 30px; border-radius: 15px; display: inline-block;">
+                        <div style="font-size: 1.8rem; line-height: 1.4; text-align: center; color: #2c3e50;">
+                            <div style="font-size: 2.5rem; font-weight: bold; color: #e74c3c; margin-bottom: 15px;">
+                                3 это 9?
+                            </div>
+                            <div style="font-size: 1.5rem; color: #3498db; font-style: italic;">
+                                В какой-то степени да
+                            </div>
+                            <div style="margin-top: 20px; font-size: 3rem; color: #2ecc71;">
+                                3² = 9
+                            </div>
+                        </div>
+                    </div>
+                    <p class="caption">"Математика полна удивительных открытий"</p>
                 </section>
 
                 <section class="image-slide">
-                    <h3>Пифагор сегодня</h3>
-                    <img src="https://i.imgur.com/3qZvL8R.png" 
-                         alt="Теорема Пифагора" class="fun-image">
-                    <p class="caption">"a² + b² = c² — формула для расчёта длины гипотенузы и оправдания своего выбора пиццы"</p>
+                    <h3>Теорема Пифагора в жизни</h3>
+                    <div style="background: linear-gradient(135deg, #667eea, #764ba2); padding: 25px; border-radius: 15px; display: inline-block;">
+                        <div style="color: white; text-align: center; font-size: 1.5rem;">
+                            <div style="font-size: 2.5rem; margin-bottom: 15px;">
+                                a² + b² = c²
+                            </div>
+                            <div style="font-size: 1.2rem;">
+                                Длина гипотенузы = √(a² + b²)<br>
+                                Где:<br>
+                                a = Первый катет<br>
+                                b = Второй катет<br>
+                                c = Гипотенуза
+                            </div>
+                            <div style="margin-top: 20px; font-style: italic;">
+                                "Самая известная формула в геометрии"
+                            </div>
+                        </div>
+                    </div>
+                    <p class="caption">"Теорема, которая изменила мир"</p>
                 </section>
             </section>
 
@@ -1245,14 +1385,15 @@
             <section>
                 <h2>Спасибо за внимание!</h2>
                 <div class="author-info">
-                    <p><i class="fas fa-user"></i> <strong>Ярышина Даниэла Павловна</strong></p>
-                    <p><i class="fas fa-users"></i> Группа: Микн 4 курс</p>
+                    <p><i class="fas fa-user"></i> <strong>Вадим Мусалимов</strong></p>
+                    <p><i class="fas fa-graduation-cap"></i> Студент 4 курса математического факультета</p>
+                    <p><i class="fas fa-calendar"></i> Январь 2025</p>
                 </div>
                 
-                <div class="example" style="background: #e8f5e9;">
+                <div class="example" style="background: linear-gradient(145deg, #e8f5e9, #c8e6c9);">
                     <p><strong>Презентация включает:</strong></p>
                     <ul>
-                        <li>6 геометрических фигур с определениями</li>
+                        <li>6 геометрических фигур с определениями и визуализациями</li>
                         <li>Формулы периметра и площади для каждой фигуры</li>
                         <li>6 интерактивных калькуляторов с проверкой существования фигур</li>
                         <li>Примеры вычислений для каждой формулы</li>
@@ -1262,9 +1403,15 @@
                 </div>
                 
                 <div style="text-align: center; margin-top: 20px;">
-                    <p style="font-style: italic; color: var(--primary-color);">
-                        "Геометрия — это искусство правильно рассуждать на неправильных чертежах"
-                    </p>
+                    <div style="background: rgba(52, 152, 219, 0.1); padding: 15px; border-radius: 10px; display: inline-block;">
+                        <p style="font-style: italic; color: var(--primary-color); font-size: 1.1rem;">
+                            "Геометрия — это искусство правильно рассуждать на неправильных чертежах"
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="hint" style="margin-top: 20px;">
+                    <i class="fas fa-lightbulb"></i> Для повторного просмотра используйте клавиши навигации или кликните на любую часть экрана
                 </div>
             </section>
         </div>
@@ -1277,8 +1424,8 @@
         // иниц Reveal.js
         Reveal.initialize({
             hash: true,
-            transition: 'slide',
-            backgroundTransition: 'fade',
+            transition: 'convex',
+            backgroundTransition: 'zoom',
             width: "100%",
             height: "100%",
             margin: 0.04,
@@ -1286,7 +1433,38 @@
             controls: true,
             progress: true,
             center: true,
-            slideNumber: true
+            slideNumber: 'c/t',
+            
+            // Анимации
+            transitionSpeed: 'fast',
+            
+            // Управление
+            keyboard: true,
+            overview: true,
+            touch: true,
+            loop: false,
+            rtl: false,
+            shuffle: false,
+            fragments: true,
+            embedded: false,
+            help: true,
+            showNotes: false,
+            autoPlayMedia: null,
+            preloadIframes: null,
+            autoSlide: 0,
+            autoSlideStoppable: true,
+            autoSlideMethod: Reveal.navigateNext,
+            mouseWheel: false,
+            hideAddressBar: true,
+            previewLinks: false,
+            focusBodyOnPageVisibilityChange: true,
+            transition: 'slide',
+            transitionSpeed: 'default',
+            backgroundTransition: 'fade',
+            parallaxBackgroundImage: '',
+            parallaxBackgroundSize: '',
+            parallaxBackgroundHorizontal: null,
+            parallaxBackgroundVertical: null
         });
         
         // обновляем индикатор прогресса
